@@ -8,275 +8,193 @@ pre: " <b> 1.3. </b> "
 
 ### Week 3 Objectives:
 
+- Continue the **AWS Skill Builder — Cloud Quest: Cloud Practitioner** journey, completing the networking, database, storage, security, and high-availability solutions.
+- Complete the 12 required solutions to earn the **AWS Cloud Quest: Cloud Practitioner** training badge.
+- Begin the optional serverless and API solutions to build toward higher Builder levels.
+
 ### Tasks to be carried out this week:
 
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | ---- | ---------- | --------------- | ------------------ |
+| Day | Task                                                                                                                                                                                                            | Start Date | Completion Date | Reference Material                                                                    |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | ------------------------------------------------------------------------------------- |
+| 2   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Cloud Economics <br>&emsp; + Connecting VPCs (AI mode + standard)                                                                        | 06/29/2026 | 06/29/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
+| 3   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Databases in Practice (AI mode + standard)                                                                                               | 06/30/2026 | 06/30/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
+| 4   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + First NoSQL Database <br>&emsp; + File Systems in the Cloud (AI mode + standard)                                                         | 07/01/2026 | 07/01/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
+| 5   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Core Security Concepts                                                                                                                   | 07/02/2026 | 07/02/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
+| 6   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Auto-Healing and Scaling Applications <br>&emsp; + Highly Available Web Applications (AI mode + standard) <br> - **Earned the Cloud Practitioner training badge** (12th required solution) | 07/03/2026 | 07/03/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
+| 1   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Serverless Foundations (AI mode + standard) <br>&emsp; + Deploying RESTful APIs (AI mode) <br> - **Team meeting (07/05/2026)**: present updated architecture diagram (AWS Amplify); vote on tech stack; review shared API designs | 07/05/2026 | 07/05/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
 
 ### Week 3 Achievements:
 
+**AWS Cloud Quest: Cloud Practitioner — Training Badge**
 
-### ERD Design Objectives:
+Earned the **AWS Cloud Quest: Cloud Practitioner** training badge on **07/03/2026**, issued by Amazon Web Services Training and Certification, after completing the 12 required solutions. The badge recognizes fundamental AWS Cloud concepts and basic solution-building knowledge across compute, networking, database, and security services, backed by hands-on lab experience.
 
-- Design a highly normalized relational database schema to support the court booking application's core business logic.
-- Implement a flexible Role-Based Access Control (RBAC) structure capable of supporting `admin`, `user`, and `court_owner` roles.
-- Architect an identity management foundation that seamlessly integrates local password authentication with multi-provider OAuth (Google, Facebook).
-- Establish a secure, stateful session management system using refresh tokens to enable automatic expiration and forced remote logouts.
-
-
-### Tasks to be carried out for schema design:
-
-| Day | Task | Start Date | Completion Date | Reference Material |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | - **Core Business Logic Design** <br>&emsp; + Draft `courts`, `court_images`, and `bookings` tables.<br>&emsp; + Define PostgreSQL exclusion constraints for double-booking prevention. | 06/29/2026 | 06/29/2026 | Application Requirements |
-| 2 | - **Identity & Access Management (IAM)** <br>&emsp; + Refactor `users` table for OAuth compatibility.<br>&emsp; + Design `user_identities` table for multi-provider linking.<br>&emsp; + Implement `refresh_tokens` table for secure session invalidation. | 06/30/2026 | 06/30/2026 | OAuth 2.0 / JWT Best Practices |
-| 3 | - **Role-Based Access Control (RBAC)** <br>&emsp; + Abstract roles into `roles` and `user_roles` bridge tables.<br> - **Payments Integration**<br>&emsp; + Finalize `payments` schema including gateway webhooks and JSONB auditing. | 07/01/2026 | 07/01/2026 | Payment Gateway Documentation |
-| 4 | - **Schema Validation & Export** <br>&emsp; + Compile DBML code.<br>&emsp; + Generate and export the visual ERD via dbdiagram.io.<br>&emsp; + Finalize architectural documentation. | 07/02/2026 | 07/02/2026 | [dbdiagram.io](https://dbdiagram.io) |
-
-### Design Achievements:
-
-**Entity-Relationship Diagram (ERD) Generation**
-
-Compiled the application's DBML specification and generated the foundational ERD. The schema resolves previous limitations by decoupling authentication methods from the core user profile and implementing a scalable many-to-many role architecture.
-
-![Court Booking Database Schema](/images/1-Worklog/1.3-Week3/CourtBookingDraft.png)
-
-
-[View full diagram with details here](https://dbdiagram.io/d/Court_booking-6a4750fb4ac62e474c1f40ec)
+[View badge on Credly](https://www.credly.com/badges/17831254-1533-4068-b1eb-b7d649a87d05)
 
 ---
 
-**Schema Module Breakdown**
+**AWS Skill Builder — Cloud Quest: Cloud Practitioner**
 
-| Module | Tables | Architectural Highlights |
-| :--- | :--- | :--- |
-| **Identity & Security** | `users`, `user_identities`, `refresh_tokens` | The `password_hash` is now nullable to gracefully handle OAuth-only users. The `user_identities` table allows players to link multiple external accounts (Google, Facebook) to a single internal UUID. Session lifecycles are strictly controlled via `refresh_tokens`, allowing the system to force-logout users upon token expiration or manual revocation. |
-| **Access Control** | `roles`, `user_roles` | Transitioned from a static string column to a dynamic Many-to-Many RBAC structure. This allows a single user to hold multiple roles simultaneously (e.g., both a `player` and a `court_owner`), providing the backend API with granular permission validation checks. |
-| **Core Operations** | `courts`, `court_images`, `bookings` | `courts` are directly tied to owners via the `owner_id` foreign key. Time-slot integrity for `bookings` is maintained at the database level using `tsrange` and `btree_gist` exclusion constraints to mathematically prevent overlapping reservations on the same court. |
-| **Financials** | `payments` | Separated from the booking lifecycle to allow asynchronous webhook updates. Includes a `gateway_response` column utilizing PostgreSQL's `JSONB` format to store raw, unstructured payment provider payloads for secure auditing and dispute resolution. |
+| Solution                              | Completed                         | Description                                                                                                                                        |
+| ------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloud Economics                       | 06/29/2026                        | AWS pricing philosophy and pricing models; licensing basics and cost-calculation tools (AWS Pricing Calculator, AWS Budgets).                     |
+| Connecting VPCs                       | 06/29/2026                        | VPC peering — overview, features, and use cases. Lab: create a peering connection and route traffic between two VPCs.                             |
+| Databases in Practice                 | 06/30/2026                        | Overview of Amazon RDS managed relational databases. Lab: launch and connect to an RDS instance.                                                  |
+| First NoSQL Database                  | 07/01/2026                        | Implement a NoSQL database (Amazon DynamoDB) to develop new features for a city's streaming entertainment service. Lab: create and query a table. |
+| File Systems in the Cloud             | 07/01/2026                        | Overview of Amazon EFS — elastic, shared file storage. Lab: create an EFS file system and mount it on EC2.                                        |
+| Core Security Concepts                | 07/02/2026                        | AWS security philosophy; IAM users, groups, and roles; the shared responsibility model and compliance standards and frameworks.                   |
+| Auto-Healing and Scaling Applications | 07/03/2026                        | EC2 Auto Scaling — fault tolerance, availability, lower cost, automatic healing, balanced capacity, and real-time health monitoring. Lab: configure an Auto Scaling group. |
+| Highly Available Web Applications     | 07/03/2026                        | Fault tolerance and availability at lower cost through automatic healing, balanced capacity, and real-time health monitoring. Lab: front an Auto Scaling group with a load balancer across AZs. |
+| Serverless Foundations                | 07/05/2026                        | Definition and the four tenets of serverless computing; abstraction types IaaS, CaaS, PaaS, FaaS, BaaS, and SaaS.                                 |
+| Deploying RESTful APIs                | 07/05/2026 (AI mode) / 07/06/2026 | Overview of Amazon API Gateway — create, publish, and manage secure APIs at scale. Lab: build and deploy a REST API. (Completed in standard mode on 07/06 — see Week 4.) |
 
----
+**Point gain this week**
 
-### DBML Source Code
+| Metric                  | End of Week 2 | Gained in Week 3 | End of Week 3 |
+| ----------------------- | ------------- | ---------------- | ------------- |
+| Total reputation points | 59            | +444             | 503           |
+| Total solutions built   | 4             | +9               | 13            |
 
-Below is the Database Markup Language (DBML) code used to generate the application's ERD. This can be imported directly into [dbdiagram.io](https://dbdiagram.io) for future modifications.
+Reputation points earned this week (best-effort attribution):
 
-```
-// -- USER IDENTITY & SECURITY --
+| Service                       | Points |
+| ----------------------------- | ------ |
+| Amazon EC2                    | 150    |
+| Elastic Load Balancing (ELB)  | 47     |
+| Amazon VPC                    | 48     |
+| Amazon RDS                    | 41     |
+| Amazon S3                     | 40     |
+| Amazon EFS                    | 24     |
+| AWS IAM                       | 24     |
+| AWS Lambda                    | 22     |
+| Amazon DynamoDB               | 21     |
+| Amazon SageMaker              | 10     |
+| AWS Billing Conductor         | 8      |
+| Amazon EC2 Auto Scaling       | 5      |
+| AWS Budgets                   | 2      |
+| Cloud Economics               | 1      |
+| AWS                           | 1      |
 
-Table users {
-  id UUID [primary key]
-  username varchar(50) [unique, note: 'Nullable, for username registration']
-  email varchar(255) [unique, not null]
-  password_hash varchar(255) [note: 'Nullable for OAuth-only users']
-  full_name varchar(255) [not null]
-  phone varchar(20)
-  avatar_url varchar(500)
-  is_active boolean [default: true, note: 'Soft delete / suspension flag']
-  created_at timestamp [default: `now()`]
-  updated_at timestamp [default: `now()`]
-}
+> Points for services used across multiple weeks (EC2, S3, Lambda, DynamoDB) are attributed to the week their corresponding solution was completed. Per-week figures are best-effort estimates that reconcile to the cumulative snapshot in the Week 4 worklog.
 
-Table user_identities {
-  id UUID [primary key]
-  user_id UUID [not null]
-  provider varchar(50) [not null, note: 'local, google, facebook']
-  provider_id varchar(255) [not null]
-  created_at timestamp [default: `now()`]
+**Completion Receipts**
 
-  indexes {
-    (provider, provider_id) [unique]
-  }
-}
+_Cloud Economics — 06/29/2026_
 
-Table refresh_tokens {
-  id UUID [primary key]
-  user_id UUID [not null]
-  token_hash varchar(255) [unique, not null]
-  device_info varchar(255)
-  ip_address varchar(45)
-  expires_at timestamp [not null]
-  is_revoked boolean [default: false]
-  created_at timestamp [default: `now()`]
-}
+![Cloud Economics completion receipt](/images/1-Worklog/1.3-Week3/CloudEconomics_20260629114925.png)
 
-// -- ROLE-BASED ACCESS CONTROL (RBAC) --
+_Connecting VPCs — 06/29/2026 (AI mode)_
 
-Table roles {
-  id UUID [primary key]
-  name varchar(50) [unique, not null, note: 'admin, user, court_owner']
-  description text
-}
+![Connecting VPCs AI mode completion receipt](/images/1-Worklog/1.3-Week3/ConnectingVPCs_AI-mode_20260629142245.png)
 
-Table user_roles {
-  user_id UUID [not null]
-  role_id UUID [not null]
-  granted_at timestamp [default: `now()`]
+_Connecting VPCs — 06/29/2026_
 
-  indexes {
-    (user_id, role_id) [pk]
-  }
-}
+![Connecting VPCs completion receipt](/images/1-Worklog/1.3-Week3/ConnectingVPCs_20260629160044.png)
 
-// -- CORE BUSINESS LOGIC --
+_Databases in Practice — 06/30/2026 (AI mode)_
 
-Table courts {
-  id UUID [primary key]
-  owner_id UUID [not null, note: 'Must have court_owner role']
-  name varchar(255) [not null]
-  description text
-  address varchar(500) [not null]
-  sport_type varchar(50) [not null]
-  price_per_hour decimal(12,2) [not null]
-  status varchar(20) [default: 'ACTIVE']
-  created_at timestamp [default: `now()`]
-  updated_at timestamp [default: `now()`]
-}
+![Databases in Practice AI mode completion receipt](/images/1-Worklog/1.3-Week3/DBsInPractice_AI-mode_20260630203650.png)
 
-Table court_images {
-  id UUID [primary key]
-  court_id UUID [not null]
-  image_url varchar(500) [not null]
-  is_primary boolean [default: false]
-  created_at timestamp [default: `now()`]
-}
+_Databases in Practice — 06/30/2026_
 
-Table bookings {
-  id UUID [primary key]
-  user_id UUID [not null]
-  court_id UUID [not null]
-  start_time timestamp [not null]
-  end_time timestamp [not null]
-  total_amount decimal(12,2) [not null]
-  status varchar(20) [default: 'PENDING']
-  note text
-  created_at timestamp [default: `now()`]
-  updated_at timestamp [default: `now()`]
-}
+![Databases in Practice completion receipt](/images/1-Worklog/1.3-Week3/DBsInPractice_20260630225418.png)
 
-Table payments {
-  id UUID [primary key]
-  booking_id UUID [not null]
-  user_id UUID [not null]
-  amount decimal(12,2) [not null]
-  currency varchar(3) [not null, default: 'VND']
-  status varchar(20) [not null, default: 'PENDING']
-  payment_method varchar(50) [not null]
-  transaction_id varchar(255) [unique]
-  gateway_response jsonb
-  created_at timestamp [not null, default: `now()`]
-  updated_at timestamp [not null, default: `now()`]
-}
+_First NoSQL Database — 07/01/2026_
 
-// -- RELATIONSHIPS --
+![First NoSQL Database completion receipt](/images/1-Worklog/1.3-Week3/NoSQLDB_20260701164215.png)
 
-Ref: user_identities.user_id > users.id
-Ref: refresh_tokens.user_id > users.id
-Ref: user_roles.user_id > users.id
-Ref: user_roles.role_id > roles.id
-Ref: courts.owner_id > users.id
-Ref: court_images.court_id > courts.id
-Ref: bookings.user_id > users.id
-Ref: bookings.court_id > courts.id
-Ref: payments.booking_id > bookings.id
-Ref: payments.user_id > users.id
-```
+_File Systems in the Cloud — 07/01/2026 (AI mode)_
 
-#### Authentication API Documentation
+![File Systems in the Cloud AI mode completion receipt](/images/1-Worklog/1.3-Week3/FileSystemsinCloud_AI-mode_20260701171031.png)
 
-<table style="width:100%; table-layout:fixed; word-break:break-word;">
-  <colgroup>
-    <col style="width:3%">
-    <col style="width:18%">
-    <col style="width:5%">
-    <col style="width:18%">
-    <col style="width:20%">
-    <col style="width:36%">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Endpoint</th>
-      <th>Method</th>
-      <th>Input</th>
-      <th>Output</th>
-      <th>Use Case</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td><code>/api/v1/auth/register</code></td>
-      <td><code>POST</code></td>
-      <td><code>email</code>, <code>password</code>, <code>full_name</code>, <code>username</code> (optional)</td>
-      <td><code>user_id</code>, <code>message: "Success"</code></td>
-      <td>User registers a new local account. Creates a record in the <code>users</code> table with a bcrypt-hashed password.</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td><code>/api/v1/auth/login</code></td>
-      <td><code>POST</code></td>
-      <td><code>email_or_username</code>, <code>password</code></td>
-      <td><code>access_token</code> (JWT), <code>refresh_token</code>, <code>user_data</code></td>
-      <td>Standard login. Validates credentials, generates a stateless short-lived JWT, and creates an active session record in the <code>refresh_tokens</code> DB table.</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td><code>/api/v1/auth/oauth</code></td>
-      <td><code>POST</code></td>
-      <td><code>provider</code> (string), <code>provider_token</code> (string)</td>
-      <td><code>access_token</code> (JWT), <code>refresh_token</code>, <code>user_data</code></td>
-      <td>OAuth flow (Google/Facebook). Backend verifies the provider token, upserts the <code>users</code> and <code>user_identities</code> tables, and issues standard app tokens.</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td><code>/api/v1/auth/refresh</code></td>
-      <td><code>POST</code></td>
-      <td><code>refresh_token</code> (string)</td>
-      <td><code>access_token</code> (new JWT)</td>
-      <td>Access token expires (e.g., after 15 mins). Client sends the refresh token. Backend verifies it is not expired or revoked in <code>refresh_tokens</code>, then issues a new JWT.</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td><code>/api/v1/auth/logout</code></td>
-      <td><code>POST</code></td>
-      <td>Bearer token (header)</td>
-      <td><code>204 No Content</code></td>
-      <td>User logs out. Backend sets <code>is_revoked = true</code> in the <code>refresh_tokens</code> table, instantly killing the session.</td>
-    </tr>
-  </tbody>
-</table>
+_File Systems in the Cloud — 07/01/2026_
+
+![File Systems in the Cloud completion receipt](/images/1-Worklog/1.3-Week3/FileSystemsinCloud_20260701183522.png)
+
+_Core Security Concepts — 07/02/2026_
+
+![Core Security Concepts completion receipt](/images/1-Worklog/1.3-Week3/CoreSecurityConcepts_20260702233856.png)
+
+_Auto-Healing and Scaling Applications — 07/03/2026_
+
+![Auto-Healing and Scaling Applications completion receipt](/images/1-Worklog/1.3-Week3/AutoHealingAndScalingApplications_20260703114647.png)
+
+_Highly Available Web Applications — 07/03/2026 (AI mode)_
+
+![Highly Available Web Applications AI mode completion receipt](/images/1-Worklog/1.3-Week3/HighlyAvailableWebApplications_AI-mode_20260703134216.png)
+
+_Highly Available Web Applications — 07/03/2026_
+
+![Highly Available Web Applications completion receipt](/images/1-Worklog/1.3-Week3/HighlyAvailableWebApplications_20260703152547.png)
+
+_Serverless Foundations — 07/05/2026 (AI mode)_
+
+![Serverless Foundations AI mode completion receipt](/images/1-Worklog/1.3-Week3/SeverlessFoundation_AI-mode_20260705222556.png)
+
+_Serverless Foundations — 07/05/2026_
+
+![Serverless Foundations completion receipt](/images/1-Worklog/1.3-Week3/SeverlessFoundation_20260705224618.png)
+
+_Deploying RESTful APIs — 07/05/2026 (AI mode)_
+
+![Deploying RESTful APIs AI mode completion receipt](/images/1-Worklog/1.3-Week3/DeployingRESTfulAPIs_AI-mode_20260705230133.png)
 
 ---
 
-### Authentication Flow
+### Team Meeting — 07/05/2026
 
-The authentication architecture ensures short-lived access with long-lived, securely revokable sessions. The table below maps each step of the login, authorization, and auto-logout cycle.
+**Attendees:** Hieu, Nguyen, Danh, Hung
+**Absent:** Thanh
 
-| Step | Actor          | Action                                                  | DB Operation                                                                           | App Component      |
-| ---- | -------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------ |
-| 1    | User           | Submits login credentials (or OAuth token)              | `SELECT` from `users` (and `user_roles`), verify hash                                  | EC2 (Backend)      |
-| 2    | Backend        | Establishes stateful session                            | `INSERT` into `refresh_tokens` with `expires_at` and `device_info`                     | EC2 (Backend)      |
-| 3    | Backend        | Returns JWT payload                                     | —                                                                                      | EC2 (Backend)      |
-| 4    | User           | Accesses protected route (e.g., Book a court)           | — (Stateless check: middleware verifies JWT signature and extracts embedded roles)     | API Middleware     |
-| 5    | User / System  | Access Token expires (e.g., after 15 minutes)           | —                                                                                      | API Middleware     |
-| 6    | User (Frontend)| Silently calls `/api/v1/auth/refresh` in background     | `SELECT` from `refresh_tokens` ensuring `is_revoked = false` and not expired           | EC2 (Backend)      |
-| 7    | Backend        | Issues new Access Token (resumes session)               | —                                                                                      | EC2 (Backend)      |
-| 8    | User           | Clicks "Logout" manually                                | `UPDATE refresh_tokens SET is_revoked = true`                                          | EC2 (Backend)      |
+**Presentations**
 
-**On compromised account / Admin forced logout:**
-- Admin hits an internal endpoint or the user changes their password.
-- `UPDATE refresh_tokens SET is_revoked = true WHERE user_id = '...'`
-- The user's active session is terminated the moment their current 15-minute Access Token expires.
+- **Thanh** (shared asynchronously) presented the API design for the **Booking** feature: <https://d2kk6nff0gmlot.cloudfront.net/1-worklog/1.3-week3/>
+- **Nguyen** shared the API design for the **User Authentication** feature: [GitHub PR #1](https://github.com/minyryo/aws-fcaj-2026/pull/1/changes/b495a65faa1e3bc638aac259dc7008c1d0fccf5a)
+- **Hieu** showed the new version of the architecture diagram, implementing **AWS Amplify** to handle the UI.
 
-**State lifecycle:**
+**Tech Stack Vote**
 
-```text
-refresh_tokens.state:   ACTIVE ──► EXPIRED (Auto-logout triggered by time)
-                           └─────► REVOKED (Manual logout / forced by admin)
+All members voted for the main tech stack:
 
-access_tokens (JWT):    VALID ───► EXPIRED (Requires fresh JWT via refresh_token)
+| Layer    | Choice                        |
+| -------- | ----------------------------- |
+| Frontend | TypeScript (React)            |
+| Backend  | FastAPI (Python) + PostgreSQL |
 
+**Task Distribution**
 
+| Track                          | Owner          | Deliverable                                                            |
+| ------------------------------ | -------------- | ---------------------------------------------------------------------- |
+| Frontend — UI Design           | Danh & Hung    | Unify & improve the UI design to match the API documentation           |
+| Backend — Tech Stack           | All BE         | Propose tech stack for BE implementation                               |
+| Backend — API & DB Unification | Hieu           | Unify the APIs & database design                                       |
+| Backend — Repo & Deployment    | Hieu           | Init code repo and provide deployment guidance for the team            |
+| Backend — API Review & Research | Thanh & Nguyen | Review the existing API doc & research on coding APIs using FastAPI (Python) |
 
+---
 
+### Glossary
+
+| Abbreviation | Meaning |
+| --- | --- |
+| AI | Artificial Intelligence |
+| API | Application Programming Interface — the contract through which software components communicate |
+| AWS | Amazon Web Services — Amazon's cloud computing platform |
+| BaaS | Backend as a Service |
+| BE | Backend — the server-side part of the application |
+| CaaS | Containers as a Service |
+| DB | Database |
+| EC2 | Amazon Elastic Compute Cloud — virtual servers on AWS |
+| EFS | Amazon Elastic File System — shared, elastic file storage |
+| ELB | Elastic Load Balancer — distributes incoming traffic across instances |
+| FaaS | Function as a Service |
+| IaaS | Infrastructure as a Service |
+| IAM | AWS Identity and Access Management — users, roles, and permissions |
+| PaaS | Platform as a Service |
+| PR | Pull Request — a proposed code change reviewed before merging |
+| RDS | Amazon Relational Database Service — managed SQL databases |
+| REST | Representational State Transfer — architectural style for HTTP APIs |
+| S3 | Amazon Simple Storage Service — object storage |
+| SaaS | Software as a Service |
+| UI | User Interface |
+| VPC | Amazon Virtual Private Cloud — an isolated virtual network on AWS |
