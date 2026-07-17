@@ -486,3 +486,30 @@ Costs can be reduced significantly by using EC2 Reserved Instances or Savings Pl
 | URL | Uniform Resource Locator — web address |
 | UUID | Universally Unique Identifier |
 | VPC | Amazon Virtual Private Cloud — an isolated virtual network on AWS |
+
+
+
+
+
+
+
+**Admin Operations — 3 endpoints** (require the `admin` role via `cognito:groups`)
+
+| # | Endpoint                                      | Method  | Input                                              | Output                                               | Use Case                                                                                                                              |
+| - | --------------------------------------------- | ------- | -------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | `/api/v1/admin/courts`                        | `GET`   | Query: `status` (default: `PENDING`), `page`, `limit` | `{ data: [...courts], total, page, limit }`          | Admins view a queue of newly registered courts awaiting review and approval before they go live on the platform.                       |
+| 2 | `/api/v1/admin/courts/{court_id}/approve`     | `PATCH` | `action` (`approve` / `reject`), `reason` (opt.)   | Updated court object                                 | Admin flips a court's status from `PENDING` to `ACTIVE` (or rejects it), triggering an SNS notification to the court owner.             |
+| 3 | `/api/v1/admin/users/{user_id}/role`          | `PATCH` | `role` (`player` / `court_manager` / `admin`)      | Updated user object                                  | Admin upgrades or modifies a user's role system-wide, eliminating the need to manually assign roles inside the AWS Cognito Console.    |
+
+**Manager Analytics — 1 endpoint** (requires the `court_manager` role)
+
+| # | Endpoint                                      | Method  | Input                                              | Output                                               | Use Case                                                                                                                              |
+| - | --------------------------------------------- | ------- | -------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | `/api/v1/manager/revenue`                     | `GET`   | Query: `date_from`, `date_to`, `court_id?`         | `{ total_revenue, currency, bookings_count }`        | Aggregates completed booking totals over a specified date range using DB-level `SUM`. Prevents heavy client-side data processing.      |
+
+**(OPTIONAL) User Profile Management — 2 endpoints** (All users)
+
+| # | Endpoint                                      | Method  | Input                                              | Output                                               | Use Case                                                                                                                              |
+| - | --------------------------------------------- | ------- | -------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | `/api/v1/users/profile`                            | `GET`   | Bearer token (header)                              | User profile object                                  | Fetches the current authenticated user's profile data (name, phone, avatar, active roles).                                             |
+| 2 | `/api/v1/users/update-profile`                            | `PUT`   | Any of: `full_name`, `phone`, `avatar_url`         | Updated user profile object                          | Allows a user (player, manager, or admin) to update their personal information after the initial registration.                         |
