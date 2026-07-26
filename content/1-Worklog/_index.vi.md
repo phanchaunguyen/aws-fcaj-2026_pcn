@@ -14,11 +14,11 @@ Thông thường và cũng là tiêu chuẩn, một worklog được thực hi�
 
 **Tuần 2:** [AWS Skill Builder, Tài liệu API Thanh toán & Thiết kế DB](1.2-week2/)
 
-**Tuần 3:** [Làm công việc B...](1.3-week3/)
+**Tuần 3:** [Huy hiệu Cloud Quest: Cloud Practitioner & Biểu quyết Tech Stack](1.3-week3/)
 
-**Tuần 4:** [Làm công việc C...](1.4-week4/)
+**Tuần 4:** [Các solution Serverless & Giám sát của Cloud Quest, Thống nhất thiết kế API & cơ sở dữ liệu](1.4-week4/)
 
-**Tuần 5:** [Làm công việc D...](1.5-week5/)
+**Tuần 5:** [Khởi tạo repo, Schema 7 bảng & Điều chỉnh thiết kế Court Manager](1.5-week5/)
 
 **Tuần 6:** [Làm công việc E...](1.6-week6/)
 

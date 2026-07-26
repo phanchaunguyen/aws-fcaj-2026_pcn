@@ -74,3 +74,24 @@ Hieu trình bày đề xuất kiến trúc AWS hybrid cho ứng dụng đặt s�
 - Nhóm FE hoàn thành nghiên cứu thị trường và bộ design system sơ bộ trước cuối tuần 2
 - Các thành viên BE hoàn thiện tài liệu API và sơ đồ DB trước cuối tuần 2
 - AWS Admin chuẩn bị xong cấu trúc tài khoản cơ bản trước khi bắt đầu công việc hạ tầng ở tuần 3
+
+---
+
+### Bảng thuật ngữ viết tắt
+
+| Viết tắt | Ý nghĩa |
+| --- | --- |
+| AI | Trí tuệ nhân tạo |
+| API | Giao diện lập trình ứng dụng — quy ước để các thành phần phần mềm giao tiếp với nhau |
+| AWS | Nền tảng điện toán đám mây của Amazon |
+| BE | Backend — phần phía máy chủ của ứng dụng |
+| DB | Cơ sở dữ liệu |
+| EC2 | Amazon Elastic Compute Cloud — máy chủ ảo trên AWS |
+| ELB | Bộ cân bằng tải — phân phối lưu lượng vào giữa các instance |
+| FE | Frontend — phần giao diện phía người dùng của ứng dụng |
+| IAM | Quản lý danh tính và quyền truy cập của AWS — user, role và quyền hạn |
+| RDS | Dịch vụ cơ sở dữ liệu quan hệ được quản lý của AWS |
+| S3 | Dịch vụ lưu trữ đối tượng của AWS |
+| SNS | Dịch vụ thông báo pub/sub của AWS |
+| UI | Giao diện người dùng |
+| UX | Trải nghiệm người dùng |
