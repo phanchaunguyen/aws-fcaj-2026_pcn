@@ -41,7 +41,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.119.0'
           extended: true
 
       - name: Build with Hugo
@@ -51,7 +51,8 @@ jobs:
         run: |
           hugo \
             --gc \
-            --minify \
+            --debug \
+            --verbose \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
