@@ -1,44 +1,65 @@
-name: Deploy Hugo site to GitHub Pages
+name: Deploy Hugo site to Pages
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main # Thay đổi thành tên branch chính của bạn nếu cần (ví dụ: master)
+  workflow_dispatch: # Cho phép bạn chạy workflow thủ công từ tab Actions
 
+# Cấp quyền cho GITHUB_TOKEN để deploy lên Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Đảm bảo chỉ có một luồng deploy chạy tại một thời điểm
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  # Job 1: Build source code Hugo
   build:
     runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: latest
     steps:
-      - name: Checkout (with submodules)
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: recursive # Lấy code của các submodule (nếu theme của bạn dùng submodule)
           fetch-depth: 0
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "0.163.1"
+          hugo-version: 'latest'
           extended: true
 
-      - name: Build
-        run: hugo --minify
+      - name: Build with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
+  # Job 2: Deploy bản build lên GitHub Pages
   deploy:
     environment:
       name: github-pages
