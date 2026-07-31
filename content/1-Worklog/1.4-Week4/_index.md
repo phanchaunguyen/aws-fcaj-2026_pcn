@@ -1,137 +1,139 @@
 ---
 title: "Week 4 Worklog"
-date: 2026-07-06
+date: 2026-06-29
 weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
 
+### roadmap.sh recommended AWS roadmap
+As the AWS eco-system is too vast to cover all, i decided to followed this roadmap from roadmap.sh as my study path. From now on, i will update my progress here. 
+
+[Follow my road map journey here](https://roadmap.sh/u/6a50761e8b578e964b053e38?roadmapId=aws)
+
+
+
+
 ### Week 4 Objectives:
 
-- Complete the remaining **AWS Cloud Quest: Cloud Practitioner** solutions beyond the badge requirement — serverless API deployment, a DynamoDB-backed API, resource monitoring, developer tooling, and AI-assisted development with Amazon Q Developer.
-- Advance the Builder progression toward Level 12 and consolidate hands-on experience across compute, API, database, monitoring, and DevOps services.
-
-### Tasks to be carried out this week:
-
-| Day | Task                                                                                                                                                                         | Start Date | Completion Date | Reference Material                                                                    |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | ------------------------------------------------------------------------------------- |
-| 2   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Deploying RESTful APIs (standard completion) <br>&emsp; + API with Database (AI mode + standard)     | 07/06/2026 | 07/06/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
-| 3   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Resource Monitoring (AI mode + standard) <br>&emsp; + Set Up a Cloud Development Environment          | 07/07/2026 | 07/07/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
-| 4   | - **AWS Skill Builder — Cloud Quest: Cloud Practitioner** <br>&emsp; + Build Apps Faster with Amazon Q Developer                                                             | 07/08/2026 | 07/08/2026      | [AWS Skill Builder](https://skillsprofile.skillbuilder.aws/user/minervaph/cloudquest) |
-
-### Week 4 Achievements:
-
-**AWS Skill Builder — Cloud Quest: Cloud Practitioner**
-
-| Solution                               | Completed  | Description                                                                                                                                             |
-| -------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Deploying RESTful APIs                 | 07/06/2026 | Overview of Amazon API Gateway — create, publish, and manage secure APIs at scale. Standard-mode completion of the solution begun in AI mode on 07/05. Lab: build and deploy a REST API. |
-| API with Database                      | 07/06/2026 | Amazon DynamoDB as a serverless NoSQL solution — performance, security, and use cases. Lab: build a serverless API backed by DynamoDB.                  |
-| Resource Monitoring                    | 07/07/2026 | Monitoring with Amazon CloudWatch — metrics, dashboards, and alarms. Lab: create a dashboard and configure an alarm.                                    |
-| Set Up a Cloud Development Environment | 07/07/2026 | Set up a cloud development environment and work with a code repository (AWS Cloud9, AWS CodeCommit). Lab: launch a Cloud9 IDE and clone a repository.   |
-| Build Apps Faster with Amazon Q Developer | 07/08/2026 | Reduce application development time with a cloud-based AI coding assistant (Amazon Q Developer / CodeWhisperer) supporting multiple platforms and languages. Lab: use AI-assisted coding to build and deploy an app faster. |
-
-**Point gain this week**
-
-| Metric                  | End of Week 3 | Gained in Week 4 | End of Week 4 |
-| ----------------------- | ------------- | ---------------- | ------------- |
-| Total reputation points | 503           | +227             | 730           |
-| Total solutions built   | 13            | +5               | 18            |
-
-Reputation points earned this week (best-effort attribution):
-
-| Service              | Points |
-| -------------------- | ------ |
-| Amazon EC2           | 47     |
-| Amazon API Gateway   | 32     |
-| AWS Lambda           | 30     |
-| Amazon S3            | 23     |
-| Amazon VPC           | 15     |
-| Amazon CloudWatch    | 15     |
-| Amazon DynamoDB      | 15     |
-| AWS Cloud9           | 10     |
-| AWS CodeCommit       | 10     |
-| Amazon CodeWhisperer | 10     |
-| Amazon Q             | 10     |
-| Elastic Load Balancing (ELB) | 5 |
-| Amazon Route 53      | 5      |
-
-> Points for services used across multiple weeks (EC2, S3, Lambda, DynamoDB) are attributed to the week their corresponding solution was completed. Per-week figures are best-effort estimates that reconcile to the cumulative snapshot below.
-
-**Completion Receipts**
-
-_Deploying RESTful APIs — 07/06/2026_
-
-![Deploying RESTful APIs completion receipt](/images/1-Worklog/1.4-Week4/DeployingRESTfulAPIs_20260706210308.png)
-
-_API with Database — 07/06/2026 (AI mode)_
-
-![API with Database AI mode completion receipt](/images/1-Worklog/1.4-Week4/APIwithDatabase_AI-mode_20260706212733.png)
-
-_API with Database — 07/06/2026_
-
-![API with Database completion receipt](/images/1-Worklog/1.4-Week4/APIwithDatabase_20260706215229.png)
-
-_Resource Monitoring — 07/07/2026 (AI mode)_
-
-![Resource Monitoring AI mode completion receipt](/images/1-Worklog/1.4-Week4/ResourceMonitoring_AI-mode_20260707135327.png)
-
-_Resource Monitoring — 07/07/2026_
-
-![Resource Monitoring completion receipt](/images/1-Worklog/1.4-Week4/ResourceMonitoring_20260707210801.png)
-
-_Set Up a Cloud Development Environment — 07/07/2026_
-
-![Set Up a Cloud Development Environment completion receipt](/images/1-Worklog/1.4-Week4/SetUpCloudDevelopmentEnvironment_20260707234753.png)
-
-_Build Apps Faster with Amazon Q Developer — 07/08/2026 (receipt pending)_
+*   Understand the differences between AWS storage families: Block, Object, and File storage.
+*   Deep dive into Amazon S3, exploring storage classes, lifecycle policies, and secure uploads via Presigned URLs.
+*   Compare Amazon EBS (Elastic Block Store) and Amazon EFS (Elastic File System).
+*   Analyze Cloud Economics by optimizing frontend delivery using S3 and CloudFront.
+*   Master AWS Amplify Gen 2 for rapid full-stack application prototyping in future projects.
 
 ---
 
-### Cloud Quest Progress — Cumulative Snapshot (as of 07/12/2026, end of Week 4)
+### AWS Storage Ecosystem: Object, Block, and File
 
-Cumulative standing of the **AWS Cloud Quest: Cloud Practitioner** journey since the start of the program (Week 1) — all figures below are running totals, not per-week gains.
+AWS categorizes storage into three main families to address different performance, persistence, and architectural needs.
 
-**Builder Level**
+**1. Object Storage: Amazon S3**
+*   **Concept:** S3 (Simple Storage Service) is an object storage service designed to store and protect any amount of data, from media files to massive data lakes.
+*   **Security & Presigned URLs:** By default, S3 buckets block all public access. Secure uploads and downloads can be managed using **Presigned URLs** generated via the AWS SDK. This mechanism allows client applications (like a web browser) to upload files directly to S3 within a limited timeframe. It prevents exposing AWS credentials and stops heavy file payloads from bottlenecking the backend servers.
+*   **Storage Classes:** S3 offers various tiers to optimize costs based on access frequency:
+    *   *S3 Standard:* High availability and low latency for frequently accessed data (hot data).
+    *   *S3 Standard-Infrequent Access (IA):* Lower storage cost for older data that still requires rapid access when needed.
+    *   *S3 Glacier / Deep Archive:* Lowest-cost storage designed for long-term archiving and compliance.
+*   **Lifecycle Rules:** Cost optimization is fully automated by configuring lifecycle rules. These rules transition objects between storage classes automatically (e.g., moving data from Standard to IA after 30 days, and to Glacier after 90 days).
+*   **Event-Driven Architecture:** S3 can emit events upon object creation or deletion. These events can seamlessly trigger AWS Lambda functions to perform tasks like image resizing or metadata extraction.
 
-- **Level 11** — 93% (1 solution away from Level 12)
-- **Total solutions built: 18**
+**2. Block Storage vs. File Storage**
+*   **Amazon EBS (Elastic Block Store):** A block storage service designed to be attached to a single EC2 instance at a time. It acts like a physical hard drive (SSD/HDD), highly performant for transactional workloads and relational databases. Data on EBS persists independently of the instance's life.
+*   **Amazon EFS (Elastic File System):** A serverless, fully elastic file storage service utilizing the NFS protocol (ideal for Linux environments). Unlike EBS, EFS can be mounted concurrently across hundreds of EC2 instances, making it perfect for shared data workloads and distributed applications.
 
-**Reputation Level**
+> *[NOTE FOR IMAGE INSERTION: Insert a comparison table or diagram illustrating the architectural differences between S3, EBS, and EFS, highlighting concurrent connections and typical use cases.]*
 
-- **Level 50** — 99% (5 reputation points away from Level 51)
-- **Total reputation points: 730**
+---
 
-| Service                                | Points |
-| -------------------------------------- | ------ |
-| Amazon EC2                             | 185    |
-| Amazon S3                              | 66     |
-| Elastic Load Balancing (ELB)           | 52     |
-| AWS Lambda                             | 52     |
-| Amazon VPC                             | 52     |
-| Amazon Elastic Compute Cloud (EC2)     | 46     |
-| Amazon DynamoDB                        | 36     |
-| Amazon Relational Database Service (RDS) | 35   |
-| Amazon API Gateway                     | 32     |
-| AWS Identity and Access Management (IAM) | 25   |
-| Amazon Elastic File System             | 20     |
-| Amazon CloudWatch                      | 15     |
-| Amazon Virtual Private Cloud (VPC)     | 11     |
-| Amazon Simple Storage Service (S3)     | 11     |
-| VPC                                    | 10     |
-| Amazon SageMaker                       | 10     |
-| AWS Cloud9                             | 10     |
-| AWS CodeCommit                         | 10     |
-| Amazon CodeWhisperer                   | 10     |
-| Amazon Q                               | 10     |
-| AWS Billing Conductor                  | 8      |
-| Amazon RDS                             | 6      |
-| Amazon Route 53                        | 5      |
-| Amazon EC2 Auto Scaling                | 5      |
-| Amazon Elastic File System (EFS)       | 4      |
-| AWS Budgets                            | 2      |
-| AWS                                    | 1      |
-| Cloud Economics                        | 1      |
+### Cloud Economics & Performance Optimization
+
+Optimizing cloud costs requires architectural separation and smart content delivery strategies.
+
+*   **Decoupling Frontend and Backend:** Hosting static assets (like a compiled React or Vue.js build) on EC2 instances incurs unnecessary and expensive compute costs. Instead, these static assets are uploaded to an S3 bucket configured specifically for static website hosting.
+*   **Integrating Amazon CloudFront:** The S3 bucket is combined with CloudFront, a global Content Delivery Network (CDN). CloudFront caches the React application at edge locations worldwide.
+*   **Cost & Performance Benefits:** 
+    *   This architecture completely offloads static traffic from the backend servers.
+    *   Compute instances (EC2/ECS) only process dynamic API requests. This allows the backend infrastructure to be scaled down, significantly reducing monthly EC2 costs.
+    *   End-users experience near-instant load times regardless of their geographic location.
+
+> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing users accessing a React app via CloudFront/S3, while dynamic API requests are routed to an Application Load Balancer and the Backend Compute layer.]*
+
+---
+
+### AWS Amplify Gen 2: Accelerating Full-Stack Development
+
+AWS Amplify simplifies full-stack development by provisioning backend services automatically. Gen 2 introduces a code-first approach, establishing it as a critical tool for future project scaffolding.
+
+**1. Core Features of Amplify Gen 2**
+*   **TypeScript-Based Infrastructure as Code (IaC):** Unlike Gen 1's CLI/Studio approach, Gen 2 defines all backend resources (Authentication, Data, Storage) using TypeScript (e.g., in a `resource.ts` file). Developers can use familiar programming languages rather than learning complex CloudFormation or Terraform syntaxes.
+*   **Automated Authentication:** Integrating Amazon Cognito is drastically simplified. A few lines of code generate a fully functional login/signup UI component (the `Authenticator` wrapper in React) alongside secure backend identity pools.
+*   **Managed Data Models:** Defining a data model automatically provisions an Amazon DynamoDB table and an AWS AppSync GraphQL API. The frontend immediately gains out-of-the-box CRUD (Create, Read, Update, Delete) operations with full typing intelligence (IntelliSense).
+
+**2. CI/CD and Sandboxed Environments**
+*   **Per-Developer Sandboxes:** Amplify Gen 2 introduces cloud sandboxes (`npx amx sandbox`). Every developer gets an isolated cloud backend during local development. This totally prevents database collisions and code overwrites among team members.
+*   **Continuous Deployment:** Amplify connects directly to GitHub repositories. Pushing code to a specific branch automatically triggers a pipeline that builds the React frontend and updates the corresponding cloud backend infrastructure simultaneously.
+
+**3. Application in Future Projects**
+*   Amplify will be heavily utilized to rapidly prototype web applications.
+*   It significantly reduces the boilerplate setup time for configuring authentication, APIs, and database provisioning.
+*   The isolated sandbox environments will ensure safe, conflict-free, and collaborative development within team projects.
+
+> *[NOTE FOR IMAGE INSERTION: Insert a screenshot of the AWS Amplify Console showing a successful CI/CD deployment pipeline, or a snippet of the TypeScript data model definition (`resource.ts`).]*
+
+---
+
+### Tasks Completed This Week:
+
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | ---- | ---------- | --------------- | ------------------ |
+| 1 | Study Storage Services (S3, EBS, EFS) | 2026-06-29 | 2026-06-29 | AWS Storage Comparison |
+| 2 | Configure Presigned URLs via SDK | 2026-06-30 | 2026-06-30 | S3 Security Guidelines |
+| 3 | Optimize Costs with S3 & CloudFront | 2026-07-01 | 2026-07-01 | Cloud Economics Docs |
+| 4 | Explore AWS Amplify Gen 2 Features | 2026-07-02 | 2026-07-02 | Amplify React Tutorial |
+| 5 | Build a Full-Stack Prototype App | 2026-07-03 | 2026-07-03 | Local Sandbox Testing |
+
+### Week 4 Achievements:
+
+*   Distinguished the precise use cases for Object, Block, and File storage on AWS.
+*   Conceptualized a secure file upload architecture utilizing S3 Presigned URLs to bypass backend network bottlenecks.
+*   Designed a cost-optimized architecture by migrating static frontend assets to a Serverless CloudFront + S3 model.
+*   Mastered the TypeScript-first approach in AWS Amplify Gen 2 for rapidly provisioning Cognito authentication and DynamoDB databases.
+*   Validated the utility of Amplify Sandboxes for isolated, conflict-free team development workflows.
+
+
+---
+
+### Team Meeting — 07/05/2026
+
+**Attendees:** Hieu, Nguyen, Danh, Hung
+**Absent:** Thanh
+
+**Presentations**
+
+- **Thanh** (shared asynchronously) presented the API design for the **Booking** feature: <https://d2kk6nff0gmlot.cloudfront.net/1-worklog/1.3-week3/>
+- **Nguyen** shared the API design for the **User Authentication** feature: [GitHub PR #1](https://github.com/minyryo/aws-fcaj-2026/pull/1/changes/b495a65faa1e3bc638aac259dc7008c1d0fccf5a)
+- **Hieu** showed the new version of the architecture diagram, implementing **AWS Amplify** to handle the UI.
+
+**Tech Stack Vote**
+
+All members voted for the main tech stack:
+
+| Layer    | Choice                        |
+| -------- | ----------------------------- |
+| Frontend | TypeScript (React)            |
+| Backend  | FastAPI (Python) + PostgreSQL |
+
+**Task Distribution**
+
+| Track                          | Owner          | Deliverable                                                            |
+| ------------------------------ | -------------- | ---------------------------------------------------------------------- |
+| Frontend — UI Design           | Danh & Hung    | Unify & improve the UI design to match the API documentation           |
+| Backend — Tech Stack           | All BE         | Propose tech stack for BE implementation                               |
+| Backend — API & DB Unification | Hieu           | Unify the APIs & database design                                       |
+| Backend — Repo & Deployment    | Hieu           | Init code repo and provide deployment guidance for the team            |
+| Backend — API Review & Research | Thanh & Nguyen | Review the existing API doc & research on coding APIs using FastAPI (Python) |
+
 
 ---
 

@@ -11,25 +11,25 @@ chapter: false
 
 ### Student Information:
 
-&emsp; **Full Name:** Pham Thi Hong Hieu
+&emsp; **Full Name:** Phan Châu Nguyên
 
-&emsp; **Phone Number:** **\*\*\***923
+&emsp; **Phone Number:** 0907046893
 
-&emsp; **Email:** hieu.phamth@hcmut.edu.vn
+&emsp; **Email:** nguyen.phan0721@hcmut.edu.vn
 
-&emsp; **University:** Ho Chi Minh City University of Technology (HCMUT) – Vietnam National University-Ho Chi Minh City (VNU-HCMC)
+&emsp; **University:** Ho Chi Minh City University of Technology (HCMUT) – VNU
 
 &emsp; **Major:** Computer Science
-
-&emsp; **Class:** AWS062026
 
 &emsp; **Internship Company:** Amazon Web Services Viet Nam Company Limited
 
 &emsp; **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Internship Duration:** From 30/06/2026 to 30/09/2026
+&emsp; **Internship Duration:** From 1/06/2026 to 30/08/2026
 
 <!-- ![Your profile picture](/images/avatar.png) -->
+
+
 
 ### Report Content
 

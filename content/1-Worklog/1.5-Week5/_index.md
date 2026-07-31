@@ -1,6 +1,6 @@
 ---
 title: "Week 5 Worklog"
-date: 2026-07-13
+date: 2026-07-06
 weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
@@ -8,63 +8,80 @@ pre: " <b> 1.5. </b> "
 
 ### Week 5 Objectives:
 
-- Finalize the CI/CD & deployment design (two-repo layout, two-account strategy) — details in [Proposal §2.2](/2-proposal/2.2-deployment/).
-- Revise the unified design for the new **Court Manager** role — details in [Proposal §2.1, §6.5](/2-proposal/2.1-architecture/).
-- Initialize both code repositories and scaffold the backend (FastAPI + Alembic); implement the 7-table schema locally.
-- Begin local frontend–backend integration.
-
-### Tasks to be carried out this week:
-
-| Day | Task                                                                                                                                                                                                                 | Start Date | Completion Date | Reference Material                                                       |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------- | ------------------------------------------------------------------------ |
-| 2   | - Decide the **two-account deployment strategy** (dev on personal AWS account, prod on sponsored credits) and the phasing plan (repos & CI first, IaC/CD later)                                                       | 07/13/2026 | 07/13/2026      | [Proposal §2.2](/2-proposal/2.2-deployment/)                             |
-| 3   | - **Court Manager design revision** (§6.5): role rename, 10 new endpoints, `court_schedules`/`court_blackouts` tables, updated ERD <br> - Create `court-booking-backend` & `court-booking-frontend` repos; scaffold BE per the step-by-step guide (§2.4); set up pyenv-virtualenv | 07/14/2026 | 07/14/2026      | [Proposal §2.1](/2-proposal/2.1-architecture/)                           |
-| 6   | - Implement SQLAlchemy models for the 7-table schema; iterative review against §6.2 (typing, constraints, nullability, FK indexes)                                                                                    | 07/17/2026 | 07/17/2026      | [Proposal §6.2](/2-proposal/2.1-architecture/)                           |
-| 7   | - Local Postgres via Docker Compose; wire Alembic and apply the first migrations (`btree_gist`, core tables) <br> - Add CORS; verify the FE service layer (axios client, mock/real switcher) against the §6.1 contract | 07/18/2026 | 07/18/2026      | [CI/CD guide Part 0.5](/2-proposal/2.2-deployment/)                      |
-| CN  | - **Team meeting (07/19/2026)**: BE progress demo; review of Nguyen's proposed API additions                                                                                                                          | 07/19/2026 | 07/19/2026      |                                                                          |
-
-### Week 5 Achievements:
-
-Full design detail lives in the Proposal — this list only records what was done, with links.
-
-- **Deployment design finalized** — two repos along team ownership, GitHub Actions orchestrating Amplify / CodeDeploy / SAM, the OpenAPI contract check, and the two-account (dev/prod) strategy → [Proposal §2.2](/2-proposal/2.2-deployment/).
-- **Court Manager design revision** — role rename, API 15 → 25 endpoints, schema 5 → 7 tables, updated Mermaid + drawio ERD → [Proposal §6.5](/2-proposal/2.1-architecture/).
-- **Both repositories live**; backend scaffolded on branch `chore/initial-setup`: FastAPI skeleton with `/api/v1/health`, 7-table SQLAlchemy models faithful to §6.2 (verified by live mapper configuration), Alembic chain applied and verified (`btree_gist` → core tables incl. the double-booking exclusion constraint).
-- **FE service layer verified** against the §6.1 contract: shared axios client with 401-refresh flow, real/mock service twins behind `VITE_USE_MOCK_API` — connection plan documented as CI/CD guide Part 0.5.
-- **Team documentation shipped**: backend README (setup, conventions, troubleshooting table, design change log), `alembic-working-guide.md`, and the expanded `cicd-setup-guide.md` (scaffold + FE–BE connection parts).
+*   Deep dive into Amazon RDS (PostgreSQL) architecture, focusing on High Availability and Connection Pooling.
+*   Master NoSQL data modeling using DynamoDB's single-table design.
+*   Implement caching mechanisms with Amazon ElastiCache (Redis) to offload database queries.
+*   Explore Amazon Cognito comprehensively for user authentication, authorization, and seamless integrations.
 
 ---
 
-### Team Meeting — 07/19/2026
+### Databases in Practice: Relational vs. NoSQL vs. Caching
 
-**Attendees:** Hieu, Thanh, Nguyen, Danh, Hung
-**Absent:** None
+Selecting the right database and optimizing its architecture is crucial for a scalable backend. This week focused on three distinct data storage and retrieval strategies.
 
-**Presentations**
+**1. Relational Database: Amazon RDS (PostgreSQL)**
+*   **Architecture & Disaster Recovery:** Amazon RDS automates time-consuming administration tasks. To ensure Disaster Recovery (DR) and High Availability (HA), **Multi-AZ deployments** are utilized. This architecture synchronously replicates data to a standby instance in a different Availability Zone. In the event of an infrastructure failure, RDS automatically fails over to the standby instance without manual intervention.
+*   **Connection Pooling with RDS Proxy:** Modern applications (especially Serverless architectures) can easily exhaust a relational database's maximum connections. **Amazon RDS Proxy** sits between the application (e.g., EC2, Lambda) and the RDS instance. It establishes and manages the necessary connection pools, allowing applications to scale unpredictably without overwhelming the underlying PostgreSQL database.
 
-- **Hieu** demoed the backend scaffold: repo structure, 7-table schema migrations applied to local Postgres, and the deployment guide walkthrough (two-repo CI/CD, two-account strategy).
-- **Nguyen** proposed 6 additional endpoints extending the unified API design (working doc `ADJ_APIs.md`): **Admin Operations** (court approval queue, approve/reject, user role management), **Manager Analytics** (revenue), and **User Profile** (view/update — deferred as low priority).
+> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing an application connecting to RDS Proxy, which then pools connections to a Multi-AZ RDS PostgreSQL cluster.]*
 
-**Review summary of Nguyen's API additions**
+**2. NoSQL Database: Amazon DynamoDB**
+*   **Core Concepts:** DynamoDB is a fully managed, serverless NoSQL database designed for applications requiring consistent, single-digit millisecond latency at any scale.
+*   **Single-Table Design:** Unlike relational databases where data is normalized across multiple tables, DynamoDB thrives on **Single-Table Design**. All related entities (e.g., Users, Orders, Products) are stored in one single table.
+*   **Implementation Strategy:** This requires identifying all application "access patterns" beforehand. Complex queries are achieved by carefully designing Partition Keys (PK) and Sort Keys (SK), and utilizing Global Secondary Indexes (GSIs) to fetch pre-joined data in a single query.
 
-1. **The admin approval endpoints fill a real gap**: §6.5 introduced the `PENDING` → `ACTIVE`/`REJECTED` court lifecycle but defined no admin API to drive it. `GET /admin/courts` (queue) + a review endpoint complete the flow, with an SNS notification to the court manager on decision.
-2. **The revenue endpoint backs the manager dashboard** promised in §6.5. Agreed definition: aggregate from **`payments` with `status = 'SUCCESS'`** (refunds fall out automatically) joined to the caller's courts — not from booking totals — and scoped by `courts.owner_id` per the IDOR rule, with optional `group_by=day|court` for charts.
-3. **Role changes must go through Cognito first**: `users.role` is only a cache — the endpoint must call Cognito `AdminAddUserToGroup`/`AdminRemoveUserFromGroup`, then update the DB row, or JWT claims and DB drift apart.
-4. **Naming standardization**: `GET/PUT /users/me` (matching the existing `/bookings/me` pattern) instead of verb-style `/users/update-profile`.
-5. **Schema addition needed**: `courts.rejection_reason` (nullable) so a rejected court's reason survives beyond the notification.
+**3. Caching: Amazon ElastiCache (Redis)**
+*   **Purpose:** Databases are often the bottleneck in read-heavy applications. **Amazon ElastiCache** provides a fully managed Redis environment to act as an in-memory data store.
+*   **Query Offloading:** Complex, frequently requested PostgreSQL queries (e.g., leaderboard generation, product catalogs) are cached in Redis. The backend first checks the cache; if the data exists (Cache Hit), it is returned instantly, bypassing the RDS instance entirely and significantly reducing database load.
 
-**Decisions & workload distribution**
+> *[NOTE FOR IMAGE INSERTION: Insert a flowchart demonstrating the Cache-Aside pattern: Application -> Checks ElastiCache -> If Miss, queries RDS -> Updates ElastiCache -> Returns Data.]*
 
-All 6 endpoints adopted with the adjustments above (integrated into the Proposal as [§6.6](/2-proposal/2.1-architecture/)). Hieu prioritizes the CI/CD setup, so feature implementation is distributed by domain ownership:
+---
 
-| # | Action | Owner | Notes |
-| - | ------ | ----- | ----- |
-| 1 | **CI/CD setup**: `ci.yml` in both repos → branch protection → environments; then the walking-skeleton deploy to the dev account (guide Parts 0–1) | Hieu | Priority — unblocks the PR quality gate for everyone |
-| 2 | `courts.rejection_reason` model + migration (first task — follow the Alembic guide), then the **Admin Operations router** (queue, review + SNS) and the **Cognito-first role endpoint** | Nguyen | His §6.6 proposal; Cognito fits his auth domain. `ADJ_APIs.md` superseded by §6.6 |
-| 3 | **Booking routers** on the scaffolded schema; then the **revenue endpoint** (payments-based `SUM` per the §6.6 definition) | Thanh | Revenue is a read-only aggregate — natural follow-on once booking queries are familiar |
-| 4 | FE–BE **connectivity proof** (health check through CORS); build the **admin review screen** and **revenue chart** against mocks; regenerate types when the contract updates (§4.3 flow) | Danh & Hung | Mock-first means no waiting on backend endpoints |
-| 5 | User-profile endpoints deferred (low priority, revisit after core features) | — | |
-| 6 | Cognito admin permissions (`AdminAddUserToGroup` etc.) noted for the EC2 instance role at deploy phase | Hieu | New IAM surface — tracked in the CI/CD guide hand-off checklist |
+### Amazon Cognito: Identity and Access Management for Applications
+
+Amazon Cognito provides frictionless and highly secure customer identity and access management (CIAM) for web and mobile applications.
+
+**1. Core Components and Purpose**
+*   **User Pools:** Serve as user directories. They handle authentication (verifying *who* the user is) and provide functionalities like sign-up, sign-in, MFA (Multi-Factor Authentication), and account recovery.
+*   **Identity Pools:** Handle authorization (determining *what* the user can access). They exchange User Pool tokens (or external tokens) for temporary AWS credentials, allowing users to directly access AWS resources (like S3 or DynamoDB).
+
+**2. Extending with External Identity Providers (IdP)**
+*   Cognito supports identity federation. Users can sign in through social identity providers (Google, Facebook, Apple) or enterprise providers via SAML 2.0 and OpenID Connect (OIDC).
+*   Cognito acts as the central broker, unifying these various providers and returning a standard set of JSON Web Tokens (JWT) to the application, regardless of the original login method.
+
+**3. Hosted UI vs. Custom UI (Default)**
+*   **Hosted UI:** An out-of-the-box, customizable web interface provided by AWS for user sign-up and sign-in. It handles the entire OAuth 2.0 flow automatically, making it the fastest way to implement authentication without writing frontend logic.
+*   **Custom UI:** Building the login screens from scratch using AWS SDKs or Amplify. This offers complete design flexibility but requires handling state management, password resets, and MFA flows manually within the frontend code.
+
+**4. Integration Strategies: Amplify vs. EC2**
+*   **With AWS Amplify:** Amplify abstracts away the complexity. By using the `Authenticator` component in React, frontend integration is achieved in minutes. Amplify automatically manages token storage, automatic refreshing, and attaching the Authorization header to outgoing API requests.
+*   **With EC2 (Backend Verification):** When the frontend sends a request to a backend hosted on EC2 (e.g., a Spring Boot or Python API), the backend must verify the user. 
+    *   The frontend passes the Cognito JWT (Access or ID token) in the `Authorization` header.
+    *   The EC2 backend uses libraries (like `aws-jwt-verify`) to validate the token's signature against Cognito's public keys (JWKS), verify the expiration time, and extract user claims before processing the business logic.
+
+> *[NOTE FOR IMAGE INSERTION: Insert an authentication flow diagram: User logs in via Cognito Hosted UI -> Receives JWT -> Sends JWT to API Gateway/EC2 -> EC2 validates JWT and returns protected data.]*
+
+---
+
+### Tasks Completed This Week:
+
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | ---- | ---------- | --------------- | ------------------ |
+| 1 | Configure Multi-AZ RDS & Proxy | 2026-07-06 | 2026-07-06 | AWS RDS Best Practices |
+| 2 | Model DynamoDB Single-Table Design | 2026-07-07 | 2026-07-07 | NoSQL Design Patterns |
+| 3 | Integrate ElastiCache (Redis) | 2026-07-08 | 2026-07-08 | Caching Strategies |
+| 4 | Setup Cognito User & Identity Pools | 2026-07-09 | 2026-07-09 | Cognito Auth Flows |
+| 5 | Verify JWT Tokens on Backend (EC2) | 2026-07-10 | 2026-07-10 | JWT Validation Docs |
+
+### Week 5 Achievements:
+
+*   Architected a highly resilient PostgreSQL database utilizing Multi-AZ for failover and RDS Proxy for efficient connection pooling.
+*   Transitioned from relational normalization to NoSQL single-table design methodologies for high-performance data retrieval.
+*   Successfully implemented a Cache-Aside pattern using Redis to drastically reduce primary database load.
+*   Configured Amazon Cognito with Google/Facebook federation using the Hosted UI.
+*   Established a secure backend workflow on EC2 to intercept, validate, and process incoming Cognito JSON Web Tokens (JWT).
+
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Week 1 Worklog"
-date: 2026-06-15
+date: 2026-06-08
 weight: 1
 chapter: false
 pre: " <b> 1.1. </b> "
@@ -8,72 +8,114 @@ pre: " <b> 1.1. </b> "
 
 ### Week 1 Objectives:
 
-- Connect and get acquainted with members of First Cloud AI Journey.
-- Attend the team kick-off meeting and align on the hybrid AWS architecture proposal.
-- Research monolith and serverless architecture patterns to understand the hybrid approach.
-- Read an overview of AWS services referenced in the project architecture diagram.
-- Create an AWS account.
-
-### Tasks to be carried out this week:
-
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | ---- | ---------- | --------------- | ------------------ |
-| 2 | - **Team meeting**: attend kick-off meeting, present and align on hybrid architecture proposal; assign roles across FE, BE, and AWS Admin tracks | 06/15/2026 | 06/15/2026 | |
-| 3 | - Research about monolith & serverless architecture | 06/16/2026 | 06/16/2026 | |
-| 4 | - Read overview on mentioned AWS services on the architecture diagram: <br>&emsp; + EC2, Lambda (Compute) <br>&emsp; + RDS PostgreSQL (Database) <br>&emsp; + API Gateway, ELB (Networking) <br>&emsp; + Cognito, IAM (Security & Identity) <br>&emsp; + SNS (Messaging) <br>&emsp; + S3 (Storage) <br>&emsp; + CloudWatch (Monitoring) | 06/17/2026 | 06/18/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 5 | - Create AWS Free Tier account | 06/19/2026 | 06/19/2026 | |
-
-### Week 1 Achievements:
-
-- Attended the team kick-off meeting; aligned on the hybrid AWS architecture splitting the court booking app into EC2 monolith (Auth + Booking) and serverless (Payment) paths.
-
-- Understood the difference between monolith and serverless architecture patterns:
-  - **Monolith**: single deployable unit, stateful, low-latency — suited for core booking logic on EC2
-  - **Serverless**: event-driven, independently scalable, no server management — suited for payment webhook processing on Lambda
-
-- Read an overview of all AWS services referenced in the architecture diagram:
-  - **Compute**: EC2 (FastAPI backend), Lambda (payment processing)
-  - **Database**: RDS PostgreSQL (shared data layer preventing double-booking race conditions)
-  - **Networking**: API Gateway (webhook entry point), Elastic Load Balancer (EC2 traffic distribution)
-  - **Security & Identity**: Cognito (user authentication), IAM (service permissions)
-  - **Messaging**: SNS (booking confirmation notifications)
-  - **Storage**: S3 (court photos and static assets)
-  - **Monitoring**: CloudWatch (unified logging for EC2 and Lambda)
-
-- Successfully created an AWS Free Tier account.
+*   Connect and get acquainted with members of First Cloud AI Journey.
+*   Attend the team kick-off meeting and align on the hybrid AWS architecture proposal.
+*   Read an overview of AWS services referenced in the project architecture diagram.
+*   Create an AWS account.
 
 ---
 
-### Team Meeting — 06/20/2026
+### Getting to Know the General Knowledge About AWS Cloud Services
 
-**Attendees:** Hieu, Danh, Thanh (Absent: Nguyen, Hung)
+The first week was dedicated to studying the overarching ecosystem of Amazon Web Services (AWS).
 
-**Architecture Decision**
+![AWS Introduction by official aws utube account](/images/1-Worklog/1.1-Week1/2.png)
+AWS Introduction by official aws utube account
 
-Hieu presented the hybrid AWS architecture proposal for the court booking application. The team aligned on the following breakdown of the three core features:
 
-| Feature                                                     | Implementation                    |
-| ----------------------------------------------------------- | --------------------------------- |
-| User Authentication (Sign Up / Sign In)                     | Monolith (EC2)                    |
-| Booking Management (Create / Edit / Cancel / View / Search) | Monolith (EC2)                    |
-| Payment Processing                                          | Serverless (Lambda + API Gateway) |
+Below is a detailed breakdown of the core service categories explored:
 
-**Task Distribution**
+**1. Compute Services**
+*   **Amazon EC2 (Elastic Compute Cloud):** The fundamental building block for provisioning virtual servers (instances) in the cloud.
+*   **Managed Services:** Services like **Elastic Beanstalk** (a PaaS for quick deployments) and **Amazon Lightsail** (ideal for simple web applications) abstract away underlying infrastructure management.
+*   **Serverless Architecture:** **AWS Lambda** allows code execution in response to events without provisioning servers. This model charges only for exact compute time consumed (measured in milliseconds).
+*   **Containers:** **ECS** and **EKS** (for Kubernetes) manage containerized applications, often combined with **AWS Fargate** as a serverless compute engine to eliminate EC2 instance management.
 
-| Track                         | Owner     | Deliverable                                                                                                                                 |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| All members                   | Everyone  | Review and provide feedback on the architecture proposal                                                                                    |
-| Frontend                      | FE Team   | Market research on similar apps; AI-assisted UX/UI design → design system (color palette, typography, icon set) and screen list per feature |
-| Backend — Booking Management  | Thanh     | API documentation (endpoint name, input, output, use case) and DB design (tables, columns, data types)                                      |
-| Backend — User Authentication | Nguyen    | API documentation and DB design for the authentication feature                                                                              |
-| Backend — Payment             | Hieu      | API documentation and DB design for the payment feature                                                                                     |
-| AWS Administration            | AWS Admin | Set up AWS Organization, accounts, IAM users, roles, and policies                                                                           |
+**2. Storage Services**
+*   **Amazon S3 (Simple Storage Service):** A highly scalable, cost-effective object storage service used for static assets (images, HTML, CSS, videos).
+*   **EBS (Elastic Block Store):** Provides high-performance block storage attached directly to a compute instance.
+*   **EFS (Elastic File System):** Utilized for shared file storage across multiple instances simultaneously.
 
-**Next Steps**
+**3. Database Services**
+*   **Relational Databases:** **Amazon RDS** automates administrative tasks for SQL databases. **Amazon Aurora** is a proprietary, highly performant relational database featuring a serverless variant that scales down to zero.
+*   **NoSQL Databases:** **DynamoDB** is a fully managed key-value store offering single-digit millisecond latency. **DocumentDB** serves as a MongoDB-compatible document database.
+*   **Caching:** **ElastiCache** and **MemoryDB** reduce database load by keeping frequently accessed data in memory.
 
-- FE team to complete market research and produce an initial design system by end of Week 2
-- BE members to complete API docs and DB schema drafts by end of Week 2
-- AWS Admin to have the base account structure ready before infrastructure work begins in Week 3
+**4. Networking & Content Delivery**
+*   **Route 53:** Handles DNS management and traffic routing.
+*   **CloudFront:** Acts as a Content Delivery Network (CDN), caching static assets from S3 to edge locations worldwide to minimize latency for global users.
+
+![AWS most important services](/images/1-Worklog/1.1-Week1/1.png)
+
+Here is a youtube video of most important aws services to learn, all in all, help taking a grasp of the scope of the system. 
+
+[I put the link here so you can watch, highly recommend](https://www.youtube.com/watch?v=OGYEXGy8ca4)
+
+---
+
+### Create an AWS Console Account & Management Console Overview
+
+
+*   The registration process requires linking a credit/debit card for identity verification and fraud prevention. 
+*   No charges are incurred as long as usage remains strictly within the Free Tier limits. 
+*   The "Free Basic Support" plan was selected to finalize the process.
+
+Upon logging in, the **AWS Management Console** serves as the central control panel. Key operational concepts include:
+
+*   **Regions:** Located in the top-right corner, representing distinct physical data center locations. Choosing the appropriate Region (e.g., `us-east-1` N. Virginia over `us-west-1` N. California) is critical for minimizing latency and optimizing costs.
+*   **Resource Provisioning:** Through hands-on mini-labs, the process of launching an EC2 instance was completed (using Amazon Linux OS and configuring a Security Group to open port 8080).
+*   **Storage & Database Creation:** An S3 Bucket was created (disabling `Block all public access` and attaching a Bucket Policy for public viewing), alongside provisioning a PostgreSQL database via Amazon RDS.
+
+![Mô tả cho ảnh](/images/1-Worklog/1.1-Week1/3.png)
+
+[Here is the link](https://www.youtube.com/watch?v=gUaNRNjLkcM)
+
+Though a good introduction to the console, it is very outdated, i recommend anyone who reading this to search for a newer videos as AWS is infamous for changing the console now and then.
+
+---
+
+### Explore AWS Budget and Do the Sidequests for Extra $100 Credits
+
+Utilizing cloud services requires strict financial vigilance. The Pay-As-You-Go model can quickly accumulate charges if mismanaged. 
+
+*   Immediately after account creation, the **Billing and Cost Management** dashboard was reviewed.
+*   **AWS Budgets** and **Billing Alarms** were configured via CloudWatch. Setting a budget threshold (e.g., $1) guarantees an immediate email alert if monthly usage inadvertently exceeds the Free Tier boundaries. 
+*   Various AWS sidequests and programs (such as AWS Educate) were researched to secure AWS Credits (worth $100). These credits provide a financial safety net for experimenting with services outside the Free Tier scope.
+
+
+
+---
+
+### Basic Concepts of AWS IAM
+
+ **AWS IAM (Identity and Access Management)** acts as the gatekeeper, centrally managing identities and access permissions.
+
+Key core concepts studied:
+
+*   **Resources:** Entities created within AWS (e.g., EC2 instances, S3 buckets, Lambda functions).
+*   **Actions:** Specific operations performed on a Resource (e.g., `s3:CreateBucket`, `lambda:InvokeFunction`).
+*   **Policies:** JSON documents defining permissions through an `Effect` (Allow or Deny), an `Action`, and a `Resource`. 
+
+
+![Mô tả cho ảnh](/images/1-Worklog/1.1-Week1/4.png)
+
+---
+
+### Tasks to be Carried Out This Week:
+
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | ---- | ---------- | --------------- | ------------------ |
+| 1 | Attend Kick-off & Setup Account | 2026-06-08 | 2026-06-08 | Kick-off notes |
+| 2-3 | Learn AWS Fundamentals | 2026-06-09 | 2026-06-10 | AWS YouTube videos |
+| 4 | IAM Deep Dive & Best Practices | 2026-06-11 | 2026-06-11 | IAM Core Concepts |
+| 5 | Setup Budgets & Billing Alarms | 2026-06-12 | 2026-06-12 | AWS Console |
+
+### Week 1 Achievements:
+
+*   Successfully created and secured an AWS Free Tier account.
+*   Gained a comprehensive understanding of the vast AWS service landscape (Compute, Storage, Database, Networking).
+*   Implemented IAM best practices by setting up standard IAM Users/Roles and securing the Root account.
+*   Effectively configured AWS Budgets to prevent unexpected costs.
 
 ---
 
