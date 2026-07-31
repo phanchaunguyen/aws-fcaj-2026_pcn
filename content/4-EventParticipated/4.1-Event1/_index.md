@@ -1,18 +1,20 @@
 ---
-title: "Event 1 — Data Driven, AI Risen"
+title: "Event 1"
 date: 2026-06-27
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
+https://drive.google.com/file/d/1FQsLVhf-r6pUR0oO7nWL_98qERfUh7Vh/view?usp=sharing
+
 ### Event Information
 
 | Field | Details |
 |-------|---------|
-| **Event Name** | Data Driven, AI Risen |
-| **Date & Time** | 09:00, June 27, 2026 |
-| **Location** | Livestream |
+| **Event Name** | URL Shortener | Culture fit in corporate environment |
+| **Date & Time** | 09:00, June 13, 2026 |
+| **Location** | On-site |
 | **Role** | Attendee |
 
 ---
