@@ -36,7 +36,10 @@ Serverless architecture shifts the operational responsibilities of provisioning 
 *   **Java:** Java applications suffer from significantly longer cold starts due to the heavy initialization of the Java Virtual Machine (JVM) and framework loading times.
 *   **Mitigation Strategies:** Utilizing **AWS Lambda SnapStart** (which caches a snapshot of the initialized memory and JVM state) or configuring **Provisioned Concurrency** keeps instances "warm" and ready to respond instantly.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a graph comparing the cold start times of different programming languages (Java, Python, Node.js) on AWS Lambda.]*
+
+![EC2 Instance types comparison](/images/1-Worklog/1.6-Week6/2.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.6-Week6/3.png)
 
 ---
 
@@ -53,7 +56,6 @@ Monolithic architectures often suffer from tight coupling, where the failure of 
 *   Messages are held securely in a queue until the consuming service is ready to process them. This prevents backend systems from being overwhelmed during unexpected traffic spikes (buffering).
 *   Combining SNS and SQS is a standard cloud pattern: SNS fans out the message, and SQS queues it for reliable, asynchronous processing.
 
-> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing a producer sending a message to an SNS Topic, which fans out to multiple SQS queues processed by independent backend services.]*
 
 ---
 
@@ -70,7 +72,11 @@ While Lambda is perfect for short-lived tasks, continuously running applications
 *   A managed Kubernetes service for running open-source Kubernetes workloads.
 *   It provides immense flexibility and avoids cloud vendor lock-in, making it the industry standard for complex, enterprise-grade microservices architectures.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a comparison table between ECS (simplicity, AWS-native) and EKS (flexibility, Kubernetes ecosystem).]*
+![EC2 Instance types comparison](/images/1-Worklog/1.6-Week6/5.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.6-Week6/4.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.6-Week6/6.png)
 
 ---
 

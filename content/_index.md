@@ -27,7 +27,7 @@ chapter: false
 
 &emsp; **Internship Duration:** From 1/06/2026 to 30/08/2026
 
-<!-- ![Your profile picture](/images/avatar.png) -->
+![EC2 Instance types comparison](/images/profile_pic.png)
 
 
 

@@ -42,7 +42,10 @@ AWS categorizes storage into three main families to address different performanc
 *   **Amazon EBS (Elastic Block Store):** A block storage service designed to be attached to a single EC2 instance at a time. It acts like a physical hard drive (SSD/HDD), highly performant for transactional workloads and relational databases. Data on EBS persists independently of the instance's life.
 *   **Amazon EFS (Elastic File System):** A serverless, fully elastic file storage service utilizing the NFS protocol (ideal for Linux environments). Unlike EBS, EFS can be mounted concurrently across hundreds of EC2 instances, making it perfect for shared data workloads and distributed applications.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a comparison table or diagram illustrating the architectural differences between S3, EBS, and EFS, highlighting concurrent connections and typical use cases.]*
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/1.png)
+
+
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/2.png)
 
 ---
 
@@ -57,7 +60,7 @@ Optimizing cloud costs requires architectural separation and smart content deliv
     *   Compute instances (EC2/ECS) only process dynamic API requests. This allows the backend infrastructure to be scaled down, significantly reducing monthly EC2 costs.
     *   End-users experience near-instant load times regardless of their geographic location.
 
-> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing users accessing a React app via CloudFront/S3, while dynamic API requests are routed to an Application Load Balancer and the Backend Compute layer.]*
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/3.png)
 
 ---
 
@@ -79,7 +82,13 @@ AWS Amplify simplifies full-stack development by provisioning backend services a
 *   It significantly reduces the boilerplate setup time for configuring authentication, APIs, and database provisioning.
 *   The isolated sandbox environments will ensure safe, conflict-free, and collaborative development within team projects.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a screenshot of the AWS Amplify Console showing a successful CI/CD deployment pipeline, or a snippet of the TypeScript data model definition (`resource.ts`).]*
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/4.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/5.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/6.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.4-Week4/7.png)
 
 ---
 

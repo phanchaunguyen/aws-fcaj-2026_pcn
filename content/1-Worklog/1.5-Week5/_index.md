@@ -29,7 +29,6 @@ Selecting the right database and optimizing its architecture is crucial for a sc
 *   **Architecture & Disaster Recovery:** Amazon RDS automates time-consuming administration tasks. To ensure Disaster Recovery (DR) and High Availability (HA), **Multi-AZ deployments** are utilized. This architecture synchronously replicates data to a standby instance in a different Availability Zone. In the event of an infrastructure failure, RDS automatically fails over to the standby instance without manual intervention.
 *   **Connection Pooling with RDS Proxy:** Modern applications (especially Serverless architectures) can easily exhaust a relational database's maximum connections. **Amazon RDS Proxy** sits between the application (e.g., EC2, Lambda) and the RDS instance. It establishes and manages the necessary connection pools, allowing applications to scale unpredictably without overwhelming the underlying PostgreSQL database.
 
-> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing an application connecting to RDS Proxy, which then pools connections to a Multi-AZ RDS PostgreSQL cluster.]*
 
 **2. NoSQL Database: Amazon DynamoDB**
 *   **Core Concepts:** DynamoDB is a fully managed, serverless NoSQL database designed for applications requiring consistent, single-digit millisecond latency at any scale.
@@ -40,7 +39,7 @@ Selecting the right database and optimizing its architecture is crucial for a sc
 *   **Purpose:** Databases are often the bottleneck in read-heavy applications. **Amazon ElastiCache** provides a fully managed Redis environment to act as an in-memory data store.
 *   **Query Offloading:** Complex, frequently requested PostgreSQL queries (e.g., leaderboard generation, product catalogs) are cached in Redis. The backend first checks the cache; if the data exists (Cache Hit), it is returned instantly, bypassing the RDS instance entirely and significantly reducing database load.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a flowchart demonstrating the Cache-Aside pattern: Application -> Checks ElastiCache -> If Miss, queries RDS -> Updates ElastiCache -> Returns Data.]*
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/1.png)
 
 ---
 
@@ -52,9 +51,32 @@ Amazon Cognito provides frictionless and highly secure customer identity and acc
 *   **User Pools:** Serve as user directories. They handle authentication (verifying *who* the user is) and provide functionalities like sign-up, sign-in, MFA (Multi-Factor Authentication), and account recovery.
 *   **Identity Pools:** Handle authorization (determining *what* the user can access). They exchange User Pool tokens (or external tokens) for temporary AWS credentials, allowing users to directly access AWS resources (like S3 or DynamoDB).
 
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/2.png)
+
+I started an Cognito identity pool, with username and password AUTH allowed, additionally, email and phone number are also configured as alias by Cognito, allowing users to user to use either of them to sign-in.
+
+Confirmation is a compulsory by Cognito standard, it can be done either via email or phone sms, whichever is available (Though sms service needed to be setup and might be costly).
+
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/3.png)
+
+This is the Hosted UI default page of Cognito, we can update this with our custom css template. There is also already sign up and password retrieval services buit-in.
+
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/4.png)
+
 **2. Extending with External Identity Providers (IdP)**
 *   Cognito supports identity federation. Users can sign in through social identity providers (Google, Facebook, Apple) or enterprise providers via SAML 2.0 and OpenID Connect (OIDC).
 *   Cognito acts as the central broker, unifying these various providers and returning a standard set of JSON Web Tokens (JWT) to the application, regardless of the original login method.
+
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/5.png)
+
+Here is the Google Auth Platform site, there must be origins and redirect URIs so Googe knows that this site is allowed to use Google Oauth2 as an external provider.
+
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/6.png)
+
+![EC2 Instance types comparison](/images/1-Worklog/1.5-Week5/7.png)
+
+Cognito provides developer with verification message right out of the box, it is also possible to edit the message accordingly. Here i tried to edit the default message into something more formal, professional.
+
 
 **3. Hosted UI vs. Custom UI (Default)**
 *   **Hosted UI:** An out-of-the-box, customizable web interface provided by AWS for user sign-up and sign-in. It handles the entire OAuth 2.0 flow automatically, making it the fastest way to implement authentication without writing frontend logic.

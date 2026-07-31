@@ -32,6 +32,7 @@ This week focused heavily on computing architectures in AWS, transitioning from 
     *   When combined with **AWS Fargate** (a serverless container engine), the need to provision or manage underlying EC2 instances is entirely eliminated. This significantly reduces operational overhead compared to self-managed EC2 environments.
 *   **Serverless (AWS Lambda):** The ultimate abstraction of compute. Code is executed strictly in response to events (e.g., an API call or an S3 upload) without any concept of underlying infrastructure. It scales automatically from zero to thousands of concurrent executions.
 
+
 **2. Choosing the Right EC2 Instance Type**
 AWS offers specific instance families optimized for different workloads:
 *   **General Purpose (e.g., T, M families):** Balanced CPU, memory, and networking for typical backend APIs.
@@ -39,7 +40,7 @@ AWS offers specific instance families optimized for different workloads:
 *   **Memory Optimized (R, X families):** Ideal for in-memory databases (like Redis) or real-time big data analytics.
 *   **Storage Optimized (I, D families):** High sequential read/write access to large datasets on local storage.
 
-> *[NOTE FOR IMAGE INSERTION: Insert an infographic or comparison table showing the different EC2 instance families (General Purpose, Compute, Memory, Storage) and their typical use cases.]*
+![EC2 Instance types comparison](/images/1-Worklog/1.3-Week3/4.png)
 
 ---
 
@@ -54,7 +55,7 @@ Understanding how to pay for compute resources is as critical as understanding t
     *   *Best practice:* Only use Spot instances for stateless, fault-tolerant, or batch-processing workloads that can handle interruptions.
 *   **EC2 Fleet:** A capability that allows configuring an Auto Scaling Group to provision a mix of On-Demand and Spot instances across different instance types. This ensures the application remains highly available while significantly reducing compute costs.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a side-by-side comparison chart illustrating the differences between On-Demand, Spot, Reserved Instances, and Savings Plans, highlighting the flexibility vs. cost trade-offs.]*
+![EC2 Instance types comparison](/images/1-Worklog/1.3-Week3/1.png)
 
 ---
 
@@ -71,11 +72,27 @@ In cloud computing, a single instance failure should never result in application
 *   **Auto Healing:** ASG continuously monitors instance health checks (often coupled with ELB health checks). If an instance crashes or becomes unhealthy, the ASG automatically terminates the faulty instance and spins up a healthy replacement without human intervention.
 
 
+
 ### Homework: Create a ASG Group
 
+![EC2 Template](/images/1-Worklog/1.3-Week3/5.png)
 
+Before creating a ASG Group, it is compulsory to have a launch template. The ASG EC2 instances will be based on the template config: instance types, size, number of vCPUs, giB RAM, EBS, etc...
+
+![EC2 ASG launch](/images/1-Worklog/1.3-Week3/6.png)
+
+If an EC2 instance suddenly pass out, ASG will automatically spin up a new one in an instant, ensuring the number of instances will be up to specs. And when traffic rush in, ASG will also automatically deploy more EC2 instances to catch up with the demand, passing the spike, instances will be terminated to cut costs.
 
 ---
+
+### AMI: instant product environment
+
+![EC2 Instance types comparison](/images/1-Worklog/1.3-Week3/2.png)
+
+Instead of deploying a brand new EC2 and installing requirements, environments, push container, etc.. We can create an AMI, which is an image of a production-ready EC2 instance.
+
+This greatly reduces the duration from EC2 running to ready for handling requests as all things are already install and configured right out of the batch.
+
 
 ### Zero-Downtime Deployment Strategies
 
@@ -93,8 +110,7 @@ When deploying a new version of a backend application (e.g., updating a Spring B
 *   *Advantage:* Instant rollback capability (just switch traffic back to Blue) and true zero-downtime.
 *   *Disadvantage:* Temporarily doubles the infrastructure cost during the deployment window.
 
-> *[NOTE FOR IMAGE INSERTION: Insert a diagram comparing Rolling Update (instance-by-instance replacement) with Blue/Green Deployment (traffic shifting between two distinct environments).]*
-
+![Blue - Green deployment arch](/images/1-Worklog/1.3-Week3/7.png)
 ---
 
 ### Tasks to be Carried Out This Week:

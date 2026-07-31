@@ -102,6 +102,8 @@ docker push <YOUR_ACCOUNT_ID>.dkr.ecr.ap-southeast-2.amazonaws.com/pokemon-backe
     *   **Target group name:** `pokemon-tg`.
     *   **Port:** `8080` (Spring Boot default).
 
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/9.png)
+
 ---
 
 ## Phase 5: Compute Orchestration (Amazon ECS Fargate)
@@ -130,6 +132,8 @@ REDIS_PORT=6379
 3.  **Critical Step:** Update the RDS Security Group (`pokemon-db-sg`) to allow Inbound Port `5432` from `ecs-backend-sg`.
 4.  **Load Balancing:** Attach the ALB (`pokemon-alb`) and point the listener to the `pokemon-tg` target group.
 
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/6.png)
+
 ---
 
 ## Phase 6: Frontend Deployment (AWS Amplify)
@@ -140,6 +144,9 @@ The React application resides within the `frontend/` monorepo structure.
 2.  **Monorepo Configuration:** Check "Connecting a monorepo?" and input `frontend` as the root directory.
 3.  **Environment Variables:** Inject the ALB DNS so the frontend can communicate with the backend API.
     *   `VITE_API_BASE_URL` = `http://<ALB_DNS_NAME>`
+
+
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/7.png)
 
 ### Build Settings (`amplify.yml`)
 
@@ -268,3 +275,25 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+```
+
+
+## Phase 8: The result 
+
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/2.png)
+
+The hosting frontend is running fine
+
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/3.png)
+
+When signing-in, user can open a pack of 10 cards, which is guanranteed to open a rare card at the 1oth card.
+
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/4.png)
+
+When done opening pack, user can view what they open, every user can open 1 pack every 1 hour, this to keep the excitement.
+
+![EC2 Instance types comparison](/images/1-Worklog/1.7-Week7/5.png)
+
+Finally, there is a binder where all cards that the user have unpacked will appear, among with their quantity and market price. 
+
+A simple dashboard is also provided.
