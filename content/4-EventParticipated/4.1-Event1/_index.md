@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-https://drive.google.com/file/d/1FQsLVhf-r6pUR0oO7nWL_98qERfUh7Vh/view?usp=sharing
+![Mô tả cho ảnh](/images/4-Event/1.png)
 
 ### Event Information
 
@@ -19,45 +19,35 @@ https://drive.google.com/file/d/1FQsLVhf-r6pUR0oO7nWL_98qERfUh7Vh/view?usp=shari
 
 ---
 
-### Event Description
+#### 1. Building a Scalable URL Shortener on AWS
+*Speaker: Cloud Architecture Team*
 
-The FCAJ Community Day in June 2026 featured five presentations focused on practical applications of Artificial Intelligence across cloud infrastructure, development, and enterprise workflows.
+This session explored the business and technical motivations behind building a custom URL shortener (similar to bit.ly). The speaker explained that the primary purposes of a URL shortener include link management, tracking click analytics, preserving character limits in SMS or social media, and enhancing brand identity with custom domains. 
 
-#### 1. Career Development and AI in Cloud Operations
-*Speaker: Steve Tran (Cloud Thinker)*
+To achieve this on the AWS Cloud, the presentation outlined a highly scalable, serverless architecture:
+*   **Amazon API Gateway:** Acts as the front door to receive user requests (e.g., clicking the short link).
+*   **AWS Lambda:** Contains the backend logic to look up the short code and issue an HTTP 301/302 redirect to the user's browser.
+*   **Amazon DynamoDB:** Serves as a fast, low-latency NoSQL database storing the key-value mapping between the generated short code and the original long URL.
+*   **Amazon Route 53:** Manages the DNS routing for the custom short domain name.
 
-Steve traced his path from IT helpdesk to AWS Solution Architect, highlighting how AI is simultaneously accelerating coding speed while raising the bar for engineers managing complex, modernized systems. He introduced Cloud Thinker's AI agentic platform, which automates incident resolution, security testing, quality control, and FinOps (cloud cost optimization).
+#### 2. The Critical Role of Culture Fit in Large Corporations
+*Speaker: HR & Engineering Leadership*
 
-#### 2. Building Voice AI Agents for the Vietnamese Market
-*Speakers: Hieu Nghi (Renova Cloud), Kiet (Student Video Group), Trung (R AI)*
+Transitioning from technical skills to career development, this presentation highlighted that technical proficiency alone is no longer enough to succeed in large corporations; "culture fit" is equally, if not more, important. 
 
-The session featured a live demo of a Voice AI agent built on AWS Bedrock and examined the challenges of deploying voice agents in the Vietnamese enterprise context. Trung proposed a custom Speech-to-Text → LLM → Text-to-Speech pipeline to accurately handle regional accents, natural conversation interruptions, and enterprise tool-calling tasks such as automatically blocking a bank card.
-
-#### 3. Automated Troubleshooting with AWS DevOps Agent
-*Speakers: Bao and Nguyen (Cloud Kinetics)*
-
-The speakers demonstrated how the AWS DevOps Agent addresses fragmented logs and slow incident response by automatically investigating alerts, identifying root causes, and generating step-by-step mitigation plans. A live demo showed the agent diagnosing a simulated DDoS attack on an ECS-hosted e-commerce application in minutes rather than hours.
-
-#### 4. Transforming Human Resources with Amazon Q
-*Speakers: Truong and Minh Anh (Noventiq)*
-
-Minh Anh outlined HR pain points such as manual CV screening and the risks of uploading applicant data to public AI tools, while Truong demonstrated Amazon Q as a secure, enterprise-customizable AI assistant. The live demo showed Amazon Q reading multiple candidate CVs, matching them against a Cloud Engineer job description, and producing a scored evaluation report automatically.
-
-#### 5. Securing Amazon Q Connections with Private MCP Servers
-*Speakers: Toan Nguyen and Nghi*
-
-The session covered the security risks of exposing Model Context Protocol (MCP) servers — which connect AI assistants like Amazon Q to tools such as Jira, Gmail, or Zalo — to the public internet (DDoS, Man-in-the-Middle attacks). Toan detailed an architecture using AWS VPC connections, private subnets, interface endpoints, and Route 53 resolvers to ensure all AI queries and data traffic remain strictly within the private AWS network.
+The speaker emphasized that a toxic or mismatched work environment can quickly lead to burnout, regardless of how good the salary or tech stack is. The core advice for candidates was to conduct deep due diligence *before* attending an interview. Strategies discussed included:
+*   **Insider Networking:** Reaching out to current or former employees (e.g., via LinkedIn) to ask candid questions about work-life balance, management styles, and daily pressures.
+*   **Reputable Review Platforms:** Thoroughly researching the company on trusted sites (like Glassdoor or Blind) to identify recurring red flags or positive cultural traits.
+*   **Reverse Interviewing:** Treating the interview as a two-way street to assess if the company's core values genuinely align with your own working style.
 
 ---
 
 ### Outcomes and Value Gained
 
-- **Broader view of AI's impact on cloud careers:** The career talk reframed how I think about upskilling — AI tools raise baseline productivity but also demand deeper system-level expertise, which directly motivates investing more in AWS certification study.
+- **Serverless Architecture Mastery:** The URL shortener breakdown provided a perfect, real-world use case for the API Gateway + Lambda + DynamoDB triad. This serverless pattern is highly applicable to our own projects, teaching us how to handle high-read traffic with minimal infrastructure management and low costs.
 
-- **Practical architecture insight for voice/notification features:** The Voice AI session's custom Vietnamese pipeline (STT → LLM → TTS) is relevant context for our court booking app — if we extend notifications beyond SNS to voice or chat, we now understand the non-trivial engineering involved.
+- **Understanding Business Value in Cloud Engineering:** Learning *why* URL shorteners exist (analytics, branding, user experience) reinforced the idea that cloud architecture must always serve a clear business purpose, rather than just being an exercise in utilizing cool technology.
 
-- **Incident response automation as a team strategy:** Learning about the AWS DevOps Agent's ability to reduce troubleshooting from hours to minutes is directly applicable to our project's future monitoring setup; this will inform how we configure CloudWatch alarms and runbooks.
+- **Strategic Career Planning:** The culture fit session completely reframed my approach to job hunting. It highlighted the necessity of looking beyond the job description and compensation package to evaluate the actual working environment.
 
-- **Secure internal AI tooling model:** The Amazon Q HR demo showed how AI assistants can be deployed within enterprise guardrails — a pattern we can reference if the team considers integrating AI into internal workflows without exposing sensitive project data.
-
-- **Security posture for AI integrations:** Understanding the MCP server vulnerability and the private-subnet mitigation pattern deepens our team's awareness of API security, complementing the API Gateway + Lambda architecture we are already building.
+- **Proactive Interview Preparation:** I now have a clear, actionable checklist before interviewing with large enterprises: I must actively seek out "insider" perspectives and read verified reviews to ensure the company's culture aligns with my long-term career goals and mental well-being.
