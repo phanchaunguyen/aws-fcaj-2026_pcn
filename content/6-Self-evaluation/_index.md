@@ -1,14 +1,13 @@
 ---
 title: "Self-Assessment"
-date: 2024-01-01
+date: 2026-08-15
 weight: 6
 chapter: false
 pre: " <b> 6. </b> "
 ---
 
-
-During my internship at **[Company/Organization Name]** from **[start date]** to **[end date]**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
-I participated in **[briefly describe the main project or task]**, through which I improved my skills in **[list skills: programming, analysis, reporting, communication, etc.]**.  
+During my internship at **the AWS FCAJ Bootcamp** from **June 1, 2026** to **August 15, 2026**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
+I participated in **the Court Booking project, taking on the role of Backend Developer and Cloud Solution Architect**, through which I improved my skills in **developing scalable applications, implementing robust cloud security, backend engineering, and applying AWS best practices**.  
 
 In terms of work ethic, I always strived to complete tasks well, complied with workplace regulations, and actively engaged with colleagues to improve work efficiency.
 
@@ -17,11 +16,11 @@ To objectively reflect on my internship period, I would like to evaluate myself 
 | No. | Criteria                            | Description                                                                                      | Good | Fair | Average |
 | --- | ----------------------------------- | ------------------------------------------------------------------------------------------------ | ---- | ---- | ------- |
 | 1   | **Professional knowledge & skills** | Understanding of the field, applying knowledge in practice, proficiency with tools, work quality | ✅    | ☐    | ☐       |
-| 2   | **Ability to learn**                | Ability to absorb new knowledge and learn quickly                                                | ☐    | ✅    | ☐       |
+| 2   | **Ability to learn**                | Ability to absorb new knowledge and learn quickly                                                | ✅    | ☐    | ☐       |
 | 3   | **Proactiveness**                   | Taking initiative, seeking out tasks without waiting for instructions                            | ✅    | ☐    | ☐       |
 | 4   | **Sense of responsibility**         | Completing tasks on time and ensuring quality                                                    | ✅    | ☐    | ☐       |
-| 5   | **Discipline**                      | Adhering to schedules, rules, and work processes                                                 | ☐    | ☐    | ✅       |
-| 6   | **Progressive mindset**             | Willingness to receive feedback and improve oneself                                              | ☐    | ✅    | ☐       |
+| 5   | **Discipline**                      | Adhering to schedules, rules, and work processes                                                 | ☐    | ✅    | ☐       |
+| 6   | **Progressive mindset**             | Willingness to receive feedback and improve oneself                                              | ✅    | ☐    | ☐       |
 | 7   | **Communication**                   | Presenting ideas and reporting work clearly                                                      | ☐    | ✅    | ☐       |
 | 8   | **Teamwork**                        | Working effectively with colleagues and participating in teams                                   | ✅    | ☐    | ☐       |
 | 9   | **Professional conduct**            | Respecting colleagues, partners, and the work environment                                        | ✅    | ☐    | ☐       |
@@ -31,6 +30,7 @@ To objectively reflect on my internship period, I would like to evaluate myself 
 
 ### Needs Improvement
 
-* Strengthen discipline and strictly comply with the rules and regulations of the company or any organization  
-* Improve problem-solving thinking  
-* Enhance communication skills in both daily interactions and professional contexts, including handling situations effectively
+*   **Cloud Architecture Diagramming:** Improve my ability to design, visualize, and present clear architectural diagrams for cloud solutions.
+*   **Infrastructure as Code (IaC):** Transition from manual AWS Console configurations (ClickOps) to utilizing IaC tools (such as AWS CloudFormation, CDK, or Terraform) for consistent and automated deployments.
+*   **Cost Optimization (FinOps):** Better manage and monitor AWS credits and cloud resource expenditures to prevent unnecessary costs.
+*   **Data-Driven Design:** Establish concrete metrics, performance goals, and load expectations *before* designing infrastructure, rather than relying on guesswork or intuition.
