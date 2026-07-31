@@ -6,6 +6,12 @@ chapter: false
 pre: " <b> 1.6. </b> "
 ---
 
+### roadmap.sh recommended AWS roadmap
+As the AWS eco-system is too vast to cover all, i decided to followed this roadmap from roadmap.sh as my study path. From now on, i will update my progress here. 
+
+[Follow my road map journey here](https://roadmap.sh/u/6a50761e8b578e964b053e38?roadmapId=aws)
+
+
 ### Week 6 Objectives:
 
 *   Master the concepts of Serverless Architecture and event-driven computing.
