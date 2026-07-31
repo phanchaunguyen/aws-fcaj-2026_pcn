@@ -8,12 +8,75 @@ pre: " <b> 1.6. </b> "
 
 ### Week 6 Objectives:
 
-### Tasks to be carried out this week:
+*   Master the concepts of Serverless Architecture and event-driven computing.
+*   Analyze the Cold Start problem in AWS Lambda and compare execution environments (Java vs. Python).
+*   Understand Event-Driven Architecture (EDA) for decoupling systems using Amazon SQS and Amazon SNS.
+*   Explore Container Orchestration services: Amazon ECS and Amazon EKS.
+*   Determine the best practices for running the Spring Boot framework in an AWS environment.
 
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | ---- | ---------- | --------------- | ------------------ |
+---
 
-### Week 6 Achievements:
+### Serverless Foundation & AWS Lambda
+
+Serverless architecture shifts the operational responsibilities of provisioning and managing servers to AWS, allowing focus entirely on application code.
+
+**1. AWS Lambda & Background Tasks**
+*   AWS Lambda executes code in response to triggers (e.g., HTTP requests via API Gateway, file uploads to S3, or schedule-based rules).
+*   It is highly effective for asynchronous background tasks, scaling automatically to handle thousands of concurrent executions.
+
+**2. The Cold Start Challenge: Java vs. Python**
+*   A "Cold Start" occurs when Lambda provisions a new execution environment to handle an incoming request, adding latency.
+*   **Python:** Being a lightweight interpreted language, Python functions start up very quickly, minimizing cold start latency.
+*   **Java:** Java applications suffer from significantly longer cold starts due to the heavy initialization of the Java Virtual Machine (JVM) and framework loading times.
+*   **Mitigation Strategies:** Utilizing **AWS Lambda SnapStart** (which caches a snapshot of the initialized memory and JVM state) or configuring **Provisioned Concurrency** keeps instances "warm" and ready to respond instantly.
+
+> *[NOTE FOR IMAGE INSERTION: Insert a graph comparing the cold start times of different programming languages (Java, Python, Node.js) on AWS Lambda.]*
+
+---
+
+### Event-Driven Architecture (EDA)
+
+Monolithic architectures often suffer from tight coupling, where the failure of one component brings down the entire system. Event-Driven Architecture solves this by decoupling services.
+
+**1. Amazon SNS (Simple Notification Service)**
+*   A managed Pub/Sub (Publish/Subscribe) messaging service.
+*   A single published message can be instantly "fanned out" to multiple subscribing services (e.g., triggering multiple Lambda functions or sending email alerts simultaneously).
+
+**2. Amazon SQS (Simple Queue Service)**
+*   A managed message queuing service used to decouple producers and consumers.
+*   Messages are held securely in a queue until the consuming service is ready to process them. This prevents backend systems from being overwhelmed during unexpected traffic spikes (buffering).
+*   Combining SNS and SQS is a standard cloud pattern: SNS fans out the message, and SQS queues it for reliable, asynchronous processing.
+
+> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing a producer sending a message to an SNS Topic, which fans out to multiple SQS queues processed by independent backend services.]*
+
+---
+
+### Container Orchestration: ECS and EKS
+
+While Lambda is perfect for short-lived tasks, continuously running applications (like robust backend APIs) are often better suited for containers.
+
+**1. Amazon ECS (Elastic Container Service)**
+*   An AWS-native, highly scalable container orchestration service.
+*   It is deeply integrated with the AWS ecosystem (ALB, IAM, CloudWatch) and provides a simpler learning curve for deploying Docker containers.
+*   When paired with **AWS Fargate**, it operates as a serverless container engine, eliminating the need to manage underlying EC2 infrastructure.
+
+**2. Amazon EKS (Elastic Kubernetes Service)**
+*   A managed Kubernetes service for running open-source Kubernetes workloads.
+*   It provides immense flexibility and avoids cloud vendor lock-in, making it the industry standard for complex, enterprise-grade microservices architectures.
+
+> *[NOTE FOR IMAGE INSERTION: Insert a comparison table between ECS (simplicity, AWS-native) and EKS (flexibility, Kubernetes ecosystem).]*
+
+---
+
+### Reasearch on running Spring Boot on AWS
+
+Spring Boot is a powerful framework, but deploying it efficiently on AWS requires choosing the right compute model based on the application's needs.
+
+*   **Amazon EC2 / Elastic Beanstalk:** The traditional approach. The Spring Boot `.jar` file is deployed onto provisioned virtual machines. It is easy to understand but requires managing scaling and server updates.
+*   **Amazon ECS with Fargate:** The highly recommended modern approach. The Spring Boot application is packaged into a Docker container. ECS manages the deployment, and Fargate handles the compute resources automatically, providing excellent horizontal scaling.
+*   **AWS Lambda (Serverless Spring):** Running a full Spring Boot application on Lambda traditionally faced severe cold start issues. However, using **Spring Cloud Function** combined with **GraalVM Native Images** compiles the application into a lightweight, standalone executable, achieving lightning-fast startup times suitable for serverless environments.
+
+> *[NOTE FOR IMAGE INSERTION: Insert an architecture diagram showing a Spring Boot Docker container deployed on Amazon ECS (Fargate) behind an Application Load Balancer.]*
 
 
 
