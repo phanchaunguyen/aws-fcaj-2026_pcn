@@ -8,22 +8,34 @@ pre: " <b> 4. </b> "
 
 ### [Sự kiện 1](4.1-Event1/)
 
-&emsp;**Tên sự kiện:** Data Driven, AI Risen
+&emsp;**Tên sự kiện:** Rút gọn URL (URL Shortener) | Sự phù hợp văn hóa trong môi trường doanh nghiệp
 
-&emsp;**Thời gian:** 09:00, ngày 27/06/2026
+&emsp;**Ngày & Giờ:** 09:00, 13/06/2026
 
-&emsp;**Địa điểm:** Livestream
+&emsp;**Địa điểm:** Trực tiếp (On-site)
 
-&emsp;**Vai trò:** Người tham dự
+&emsp;**Vai trò:** Người tham dự (Attendee)
 
 ---
 
 ### [Sự kiện 2](4.2-Event2/)
 
-&emsp;**Tên sự kiện:** _(Cập nhật sau)_
+&emsp;**Tên sự kiện:** AWS GameDay - 8 đội tranh tài trực tiếp về kiến thức AWS
 
-&emsp;**Thời gian:** _(Cập nhật sau)_
+&emsp;**Ngày & Giờ:** 09:00, 20/06/2026
 
-&emsp;**Địa điểm:** _(Cập nhật sau)_
+&emsp;**Địa điểm:** Trực tiếp (On-site)
 
-&emsp;**Vai trò:** _(Cập nhật sau)_
+&emsp;**Vai trò:** Người tham dự (Attendee)
+
+---
+
+### [Sự kiện 3](4.3-Event3/)
+
+&emsp;**Tên sự kiện:** Hackathon AWS AI Builder - Trình bày Dự án
+
+&emsp;**Ngày & Giờ:** 09:00, 25/07/2026
+
+&emsp;**Địa điểm:** Trực tiếp (On-site)
+
+&emsp;**Vai trò:** Người tham dự (Attendee)

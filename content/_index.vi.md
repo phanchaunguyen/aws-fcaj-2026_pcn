@@ -1,33 +1,31 @@
 ---
 title: "Báo cáo thực tập"
-date: 2026-06-15
+date: 2026-08-15
 weight: 1
 chapter: false
 ---
 
 # Báo cáo thực tập
 
-### Thông tin sinh viên:
+### Thông tin Sinh viên:
 
-&emsp; **Họ và tên:** Phạm Thị Hồng Hiếu
+&emsp; **Họ và tên:** Phan Châu Nguyên
 
-&emsp; **Số điện thoại:** **\*\*\***923
+&emsp; **Số điện thoại:** 0907046893
 
-&emsp; **Email:** hieu.phamth@hcmut.edu.vn
+&emsp; **Email:** nguyen.phan0721@hcmut.edu.vn
 
-&emsp; **Trường:** Đại học Bách Khoa TP.HCM
+&emsp; **Trường Đại học:** Đại học Bách Khoa TP.HCM (HCMUT) – ĐHQG-HCM
 
-&emsp; **Ngành:** Khoa học Máy Tính
+&emsp; **Chuyên ngành:** Khoa học Máy tính
 
-&emsp; **Lớp:** AWS062026
+&emsp; **Công ty Thực tập:** Công ty TNHH Amazon Web Services Việt Nam
 
-&emsp; **Công ty thực tập:** Công ty TNHH Amazon Web Services Viet Nam
+&emsp; **Vị trí Thực tập:** Workforce Bootcamp - First Cloud AI Journey
 
-&emsp; **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
+&emsp; **Thời gian Thực tập:** Từ 01/06/2026 đến 30/08/2026
 
-&emsp; **Thời gian thực tập:** Từ ngày 30/06/2026 đến ngày 30/9/2026
-
-![Ảnh đại diện của bạn](/images/avatar.png)
+![So sánh các loại EC2 Instance](/images/profile_pic.png)
 
 ### Nội dung báo cáo
 

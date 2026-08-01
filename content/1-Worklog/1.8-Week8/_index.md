@@ -83,6 +83,9 @@ The switch is automatic. While `APP_ENV=local`, the `auth.py` script uses a loca
 - **Hieu & Thanh** presented the finalized **Architecture Diagram**, ensuring team consensus on the network flow from the end-user through the global CDN down to the private database subnets.
 - **Danh** led a session on **VPC & CIDR Block Re-partitioning** to avoid IP exhaustion and route conflicts, establishing a strict boundary between public and private resources.
 - **Team** conducted a comprehensive audit of **Security Group (SG)** configurations to guarantee secure inter-service communication and fix early integration timeouts.
+- **Hieu** demoed the CI pipeline (Postgres-backed ruff + pytest on every PR), walked through the cross-account identity setup (MFA AssumeRole + OIDC deploy roles), and showed the completed backend API surface with the regenerated `openapi.json` contract.
+- **Thanh** and **Nguyen** reviewed their domain endpoints as implemented, confirming the contract matches the §6.5 / §6.6 design.
+- **Danh & Hung** showed the frontend consuming the real endpoints behind the mock/real switch, with type generation from `openapi.json`.
 
 **Review summary of Architecture & Network adjustments**
 
@@ -95,3 +98,15 @@ The switch is automatic. While `APP_ENV=local`, the `auth.py` script uses a loca
    - **ECS-Backend-SG**: Allows Inbound TCP Port `8080` *exclusively* from `ALB-SG`.
    - **RDS-DB-SG**: Allows Inbound PostgreSQL Port `5432` *exclusively* from `ECS-Backend-SG`.
 4. **Environment Parity**: Addressed bugs where local setups failed to mirror cloud networking. We established a strict `APP_ENV` variable convention (`local` vs. `dev`) so the backend can seamlessly switch connection strings between local mocked services and real AWS VPC endpoints.
+
+
+**Decisions & workload distribution**
+
+| # | Action | Owner | Notes |
+| - | ------ | ----- | ----- |
+| 1 | Own the **AWS infrastructure + deployment** track next week (network, RDS, Cognito, SSM, EC2 + CI/CD deploy) | Hieu | Priority — the app is code-complete; the gap is now infra |
+| 2 | Review + refine the **Admin Operations** router and the **Cognito-first role** endpoint against §6.6; own the **payment-Lambda** split when the serverless track begins | Nguyen | His auth/admin domain |
+| 3 | Review + harden the **booking + revenue** endpoints; validate the double-booking exclusion constraint under concurrency | Thanh | His booking domain |
+| 4 | Build the **manager/admin/profile UI** screens against the live endpoints; prepare Amplify hosting | Danh & Hung | FE domain |
+
+

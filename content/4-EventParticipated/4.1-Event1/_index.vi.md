@@ -1,61 +1,55 @@
 ---
-title: "Sự kiện 1 — Data Driven, AI Risen"
+title: "Sự kiện 1"
 date: 2026-06-27
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-### Thông tin sự kiện
 
-| Thông tin | Chi tiết |
-|-----------|---------|
-| **Tên sự kiện** | Data Driven, AI Risen |
-| **Thời gian** | 09:00, ngày 27/06/2026 |
-| **Địa điểm** | Livestream |
-| **Vai trò** | Người tham dự |
+![Mô tả cho ảnh](/images/4-Event/1.png)
 
----
 
-### Mô tả sự kiện
+### Thông tin Sự kiện
 
-FCAJ Community Day tháng 6/2026 gồm năm bài trình bày tập trung vào các ứng dụng thực tiễn của Trí tuệ Nhân tạo trong hạ tầng đám mây, phát triển phần mềm và quy trình doanh nghiệp.
-
-#### 1. Phát triển sự nghiệp và AI trong vận hành đám mây
-*Diễn giả: Steve Tran (Cloud Thinker)*
-
-Steve chia sẻ hành trình từ vị trí IT helpdesk đến AWS Solution Architect, nhấn mạnh rằng AI vừa tăng tốc độ lập trình vừa đòi hỏi kỹ sư phải có chuyên môn sâu hơn để quản lý các hệ thống phức tạp. Ông giới thiệu nền tảng AI agentic của Cloud Thinker, tự động hóa việc xử lý sự cố, kiểm thử bảo mật, kiểm soát chất lượng và tối ưu chi phí đám mây (FinOps).
-
-#### 2. Xây dựng Voice AI Agent cho thị trường Việt Nam
-*Diễn giả: Hieu Nghi (Renova Cloud), Kiet (Student Video Group), Trung (R AI)*
-
-Phiên trình bày demo trực tiếp một Voice AI Agent được xây trên AWS Bedrock và phân tích các thách thức khi triển khai voice agent trong môi trường doanh nghiệp Việt Nam. Trung đề xuất pipeline tùy chỉnh Speech-to-Text → LLM → Text-to-Speech để xử lý chính xác giọng địa phương, ngắt hội thoại tự nhiên và các tác vụ tool-calling doanh nghiệp như tự động khóa thẻ ngân hàng.
-
-#### 3. Tự động hóa khắc phục sự cố với AWS DevOps Agent
-*Diễn giả: Bao và Nguyen (Cloud Kinetics)*
-
-Các diễn giả trình bày cách AWS DevOps Agent giải quyết vấn đề log phân tán và thời gian phản hồi sự cố chậm bằng cách tự động điều tra cảnh báo, xác định nguyên nhân gốc rễ và đề xuất kế hoạch khắc phục từng bước. Demo trực tiếp cho thấy agent chẩn đoán thành công một cuộc tấn công DDoS giả lập trên ứng dụng thương mại điện tử chạy trên ECS trong vài phút thay vì vài giờ.
-
-#### 4. Chuyển đổi quy trình Nhân sự với Amazon Q
-*Diễn giả: Truong và Minh Anh (Noventiq)*
-
-Minh Anh nêu các điểm đau của bộ phận HR như sàng lọc CV thủ công và rủi ro bảo mật khi tải dữ liệu ứng viên lên các công cụ AI công khai; Truong demo Amazon Q như một trợ lý AI bảo mật, có thể tùy chỉnh cho doanh nghiệp. Demo cho thấy Amazon Q tự động đọc nhiều CV, đối chiếu với mô tả vị trí Cloud Engineer và tạo báo cáo chấm điểm, đánh giá toàn diện.
-
-#### 5. Bảo mật kết nối Amazon Q với Private MCP Server
-*Diễn giả: Toan Nguyen và Nghi*
-
-Phiên trình bày đề cập đến rủi ro bảo mật khi để lộ Model Context Protocol (MCP) server — cầu nối giữa các AI assistant như Amazon Q và các công cụ như Jira, Gmail, Zalo — ra internet công khai (DDoS, tấn công Man-in-the-Middle). Toan mô tả kiến trúc sử dụng AWS VPC connection, private subnet, interface endpoint và Route 53 resolver để đảm bảo toàn bộ lưu lượng AI và dữ liệu luôn nằm trong mạng AWS riêng tư.
+| Trường | Chi tiết |
+|-------|---------|
+| **Tên sự kiện** | Rút gọn URL (URL Shortener) | Sự phù hợp văn hóa trong môi trường doanh nghiệp |
+| **Ngày & Giờ** | 09:00, 13/06/2026 |
+| **Địa điểm** | Trực tiếp (On-site) |
+| **Vai trò** | Người tham dự (Attendee) |
 
 ---
 
-### Kết quả và giá trị đạt được
+#### 1. Xây dựng hệ thống Rút gọn URL có khả năng mở rộng trên AWS
+*Diễn giả: Nhóm Kiến trúc Đám mây (Cloud Architecture Team)*
 
-- **Góc nhìn rộng hơn về tác động của AI đến sự nghiệp cloud:** Bài chia sẻ về sự nghiệp giúp tôi nhìn lại việc nâng cao kỹ năng — AI tăng năng suất cơ bản nhưng đồng thời đòi hỏi chuyên môn sâu hơn về hệ thống, từ đó thúc đẩy tôi đầu tư nhiều hơn vào việc học AWS.
+Phiên này khám phá các động lực về kinh doanh và kỹ thuật đằng sau việc xây dựng một trình rút gọn URL tùy chỉnh (tương tự như bit.ly). Diễn giả giải thích rằng mục đích chính của một trình rút gọn URL bao gồm việc quản lý liên kết, theo dõi phân tích lượt click, duy trì giới hạn ký tự trong SMS hoặc mạng xã hội, và nâng cao nhận diện thương hiệu với các domain tùy chỉnh. 
 
-- **Hiểu sâu hơn về kiến trúc voice/thông báo:** Pipeline Voice AI tùy chỉnh cho tiếng Việt (STT → LLM → TTS) là kiến thức nền hữu ích nếu ứng dụng đặt sân của nhóm mở rộng thông báo ra ngoài SNS sang voice hoặc chat — giờ tôi đã hiểu độ phức tạp kỹ thuật đằng sau.
+Để đạt được điều này trên Đám mây AWS, bài thuyết trình đã vạch ra một kiến trúc serverless (không máy chủ) có khả năng mở rộng cao:
+*   **Amazon API Gateway:** Đóng vai trò là cửa trước (front door) để nhận các yêu cầu từ người dùng (ví dụ: click vào link rút gọn).
+*   **AWS Lambda:** Chứa logic backend để tra cứu mã rút gọn và trả về lệnh điều hướng (redirect) HTTP 301/302 đến trình duyệt của người dùng.
+*   **Amazon DynamoDB:** Đóng vai trò là cơ sở dữ liệu NoSQL nhanh, độ trễ thấp để lưu trữ ánh xạ key-value giữa mã rút gọn được tạo ra và URL gốc.
+*   **Amazon Route 53:** Quản lý định tuyến DNS cho tên miền rút gọn tùy chỉnh.
 
-- **Chiến lược tự động hóa phản hồi sự cố cho nhóm:** Khả năng của AWS DevOps Agent rút ngắn thời gian xử lý từ hàng giờ xuống vài phút rất phù hợp với chiến lược giám sát tương lai của dự án; điều này sẽ ảnh hưởng đến cách nhóm cấu hình CloudWatch alarm và runbook.
+#### 2. Vai trò then chốt của Sự phù hợp văn hóa (Culture Fit) trong các tập đoàn lớn
+*Diễn giả: Lãnh đạo HR & Kỹ thuật*
 
-- **Mô hình triển khai AI nội bộ an toàn:** Demo Amazon Q trong HR cho thấy cách triển khai AI assistant trong khuôn khổ bảo mật doanh nghiệp — một mô hình tham chiếu hữu ích nếu nhóm tích hợp AI vào quy trình nội bộ mà không để lộ dữ liệu dự án nhạy cảm.
+Chuyển từ kỹ năng kỹ thuật sang phát triển sự nghiệp, bài thuyết trình này nhấn mạnh rằng chỉ riêng sự thành thạo kỹ thuật không còn đủ để thành công trong các tập đoàn lớn; "sự phù hợp văn hóa" (culture fit) cũng quan trọng tương đương, nếu không muốn nói là hơn. 
 
-- **Nhận thức bảo mật cho tích hợp AI:** Hiểu lỗ hổng MCP server và giải pháp private subnet giúp nâng cao ý thức bảo mật API của nhóm, bổ sung cho kiến trúc API Gateway + Lambda mà nhóm đang xây dựng.
+Diễn giả nhấn mạnh rằng một môi trường làm việc độc hại hoặc không phù hợp có thể nhanh chóng dẫn đến kiệt sức (burnout), bất kể mức lương hay tech stack (công nghệ) tốt đến đâu. Lời khuyên cốt lõi dành cho các ứng viên là hãy thực hiện thẩm định (due diligence) sâu sắc *trước khi* tham gia phỏng vấn. Các chiến lược được thảo luận bao gồm:
+*   **Kết nối người trong cuộc (Insider Networking):** Chủ động liên hệ với các nhân viên hiện tại hoặc cựu nhân viên (ví dụ: qua LinkedIn) để hỏi những câu hỏi thẳng thắn về sự cân bằng công việc - cuộc sống, phong cách quản lý và áp lực hàng ngày.
+*   **Các nền tảng đánh giá uy tín:** Nghiên cứu kỹ lưỡng công ty trên các trang web đáng tin cậy (như Glassdoor hoặc Blind) để xác định các "cờ đỏ" (red flags) lặp đi lặp lại hoặc các đặc điểm văn hóa tích cực.
+*   **Phỏng vấn ngược (Reverse Interviewing):** Coi cuộc phỏng vấn là con đường hai chiều để đánh giá xem liệu các giá trị cốt lõi của công ty có thực sự phù hợp với phong cách làm việc của riêng mình hay không.
+
+---
+
+### Kết quả và Giá trị thu được
+
+- **Nắm vững Kiến trúc Serverless:** Phân tích về trình rút gọn URL đã cung cấp một use case (trường hợp sử dụng) thực tế hoàn hảo cho bộ ba API Gateway + Lambda + DynamoDB. Pattern serverless này có tính ứng dụng rất cao cho các dự án của riêng mình, dạy mình cách xử lý lưu lượng đọc (read traffic) cao với chi phí thấp và quản lý hạ tầng ở mức tối thiểu.
+
+- **Hiểu giá trị Kinh doanh trong Kỹ thuật Đám mây (Cloud Engineering):** Việc học được *lý do tại sao* các trình rút gọn URL lại tồn tại (phân tích, định vị thương hiệu, trải nghiệm người dùng) đã củng cố ý nghĩ rằng kiến trúc đám mây phải luôn phục vụ một mục đích kinh doanh rõ ràng, thay vì chỉ là bài tập thực hành ứng dụng các công nghệ ngầu.
+
+- **Lập kế hoạch Sự nghiệp Chiến lược:** Buổi nói chuyện về sự phù hợp văn hóa đã tái cấu trúc hoàn toàn cách tiếp cận của mình trong việc tìm kiếm việc làm. Nó làm nổi bật sự cần thiết của việc nhìn xa hơn bản mô tả công việc (job description) và gói đãi ngộ để đánh giá môi trường làm việc thực tế.
+
+- **Chuẩn bị Phỏng vấn Chủ động:** Giờ đây mình đã có một danh sách kiểm tra (checklist) rõ ràng, có thể hành động trước khi phỏng vấn với các doanh nghiệp lớn: mình phải chủ động tìm kiếm góc nhìn của "người trong cuộc" và đọc các đánh giá đã được xác minh để đảm bảo văn hóa công ty phù hợp với mục tiêu sự nghiệp dài hạn và sức khỏe tinh thần của mình.

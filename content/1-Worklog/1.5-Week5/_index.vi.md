@@ -1,87 +1,132 @@
 ---
-title: "Worklog Tuần 5"
-date: 2026-07-13
+title: "Báo cáo công việc Tuần 5"
+date: 2026-07-06
 weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
 
-### Mục tiêu tuần 5:
+### Lộ trình học AWS được đề xuất từ roadmap.sh
+Vì hệ sinh thái AWS quá rộng lớn để có thể bao quát toàn bộ, mình quyết định làm theo lộ trình từ trang roadmap.sh để định hướng con đường học tập. Từ giờ trở đi, mình sẽ cập nhật tiến độ của mình tại đây. 
 
-- Chốt thiết kế CI/CD & quy trình triển khai (hai repo, chiến lược hai tài khoản AWS) — chi tiết tại [Bản đề xuất §2.2](/vi/2-proposal/2.2-deployment/).
-- Điều chỉnh thiết kế thống nhất cho vai trò mới **Court Manager** — chi tiết tại [Bản đề xuất §2.1, §6.5](/vi/2-proposal/2.1-architecture/).
-- Khởi tạo cả hai code repository và scaffold backend (FastAPI + Alembic); triển khai schema 7 bảng trên môi trường local.
-- Bắt đầu kết nối frontend–backend trên local.
+[Theo dõi hành trình học tập của mình tại đây](https://roadmap.sh/u/6a50761e8b578e964b053e38?roadmapId=aws)
 
-### Các công việc cần triển khai trong tuần này:
 
-| Thứ | Công việc                                                                                                                                                                                                                | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                                                    |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ | --------------- | ------------------------------------------------------------------ |
-| 2   | - Quyết định **chiến lược triển khai hai tài khoản** (dev trên tài khoản AWS cá nhân, prod trên tài khoản có credit) và kế hoạch phân giai đoạn (repo & CI trước, IaC/CD sau)                                            | 13/07/2026   | 13/07/2026      | [Bản đề xuất §2.2](/vi/2-proposal/2.2-deployment/)                 |
-| 3   | - **Điều chỉnh thiết kế Court Manager** (§6.5): đổi tên vai trò, 10 endpoint mới, bảng `court_schedules`/`court_blackouts`, cập nhật ERD <br> - Tạo repo `court-booking-backend` & `court-booking-frontend`; scaffold BE theo hướng dẫn từng bước (§2.4); thiết lập pyenv-virtualenv | 14/07/2026   | 14/07/2026      | [Bản đề xuất §2.1](/vi/2-proposal/2.1-architecture/)               |
-| 6   | - Triển khai model SQLAlchemy cho schema 7 bảng; review nhiều vòng đối chiếu §6.2 (kiểu dữ liệu, ràng buộc, nullability, index cho FK)                                                                                   | 17/07/2026   | 17/07/2026      | [Bản đề xuất §6.2](/vi/2-proposal/2.1-architecture/)               |
-| 7   | - Postgres local qua Docker Compose; nối Alembic và áp dụng các migration đầu tiên (`btree_gist`, các bảng cốt lõi) <br> - Thêm CORS; kiểm tra tầng service của FE (axios client, bộ chuyển mock/real) theo đặc tả §6.1  | 18/07/2026   | 18/07/2026      | [Hướng dẫn CI/CD Part 0.5](/vi/2-proposal/2.2-deployment/)         |
-| CN  | - **Họp nhóm (19/07/2026)**: demo tiến độ BE; review các API bổ sung do Nguyên đề xuất                                                                                                                                   | 19/07/2026   | 19/07/2026      |                                                                    |
+### Mục tiêu Tuần 5:
 
-### Kết quả đạt được tuần 5:
-
-Chi tiết thiết kế đầy đủ nằm trong Bản đề xuất — danh sách này chỉ ghi nhận công việc đã làm, kèm liên kết.
-
-- **Chốt thiết kế triển khai** — hai repo theo nhóm phụ trách, GitHub Actions điều phối Amplify / CodeDeploy / SAM, kiểm tra API contract bằng OpenAPI, và chiến lược hai tài khoản (dev/prod) → [Bản đề xuất §2.2](/vi/2-proposal/2.2-deployment/).
-- **Điều chỉnh thiết kế Court Manager** — đổi tên vai trò, API 15 → 25 endpoint, schema 5 → 7 bảng, cập nhật ERD Mermaid + drawio → [Bản đề xuất §6.5](/vi/2-proposal/2.1-architecture/).
-- **Cả hai repository đã hoạt động**; backend scaffold trên nhánh `chore/initial-setup`: khung FastAPI với `/api/v1/health`, model SQLAlchemy 7 bảng bám sát §6.2 (kiểm chứng bằng cấu hình mapper trực tiếp), chuỗi Alembic đã áp dụng và kiểm tra (`btree_gist` → các bảng cốt lõi, gồm exclusion constraint chống đặt trùng sân).
-- **Đã kiểm tra tầng service của FE** theo đặc tả §6.1: axios client dùng chung với luồng refresh khi 401, cặp service real/mock sau cờ `VITE_USE_MOCK_API` — kế hoạch kết nối được ghi tại Hướng dẫn CI/CD Part 0.5.
-- **Tài liệu cho nhóm**: README backend (thiết lập, quy ước, bảng xử lý sự cố, nhật ký thay đổi thiết kế), `alembic-working-guide.md`, và `cicd-setup-guide.md` mở rộng (phần scaffold + kết nối FE–BE).
+*   Tìm hiểu sâu về kiến trúc Amazon RDS (PostgreSQL), tập trung vào Tính sẵn sàng cao (High Availability) và Connection Pooling (Hồ chứa kết nối).
+*   Nắm vững việc mô hình hóa dữ liệu NoSQL sử dụng thiết kế Single-table (bảng đơn) của DynamoDB.
+*   Triển khai các cơ chế bộ nhớ đệm (caching) với Amazon ElastiCache (Redis) để giảm tải cho các truy vấn cơ sở dữ liệu.
+*   Khám phá toàn diện Amazon Cognito cho các mục đích xác thực người dùng (authentication), phân quyền (authorization), và tích hợp mượt mà.
 
 ---
 
-### Biên bản họp nhóm — 19/07/2026
+### Cơ sở dữ liệu trong Thực tế: Relational vs. NoSQL vs. Caching
 
-**Thành phần tham dự:** Hiếu, Thành, Nguyên, Danh, Hùng
-**Vắng mặt:** Không
+Việc lựa chọn đúng cơ sở dữ liệu và tối ưu hóa kiến trúc của nó là điều cốt lõi cho một backend có khả năng mở rộng. Tuần này tập trung vào ba chiến lược lưu trữ và truy xuất dữ liệu khác biệt.
 
-**Trình bày**
+**1. Cơ sở dữ liệu Quan hệ (Relational Database): Amazon RDS (PostgreSQL)**
+*   **Kiến trúc & Phục hồi thảm họa:** Amazon RDS tự động hóa các tác vụ quản trị tốn thời gian. Để đảm bảo khả năng Phục hồi thảm họa (Disaster Recovery - DR) và Tính sẵn sàng cao (HA), **các triển khai Multi-AZ** được sử dụng. Kiến trúc này sao chép đồng bộ dữ liệu sang một instance dự phòng (standby) ở một Availability Zone khác. Trong trường hợp xảy ra lỗi hạ tầng, RDS tự động chuyển đổi dự phòng (failover) sang instance standby mà không cần can thiệp thủ công.
+*   **Connection Pooling với RDS Proxy:** Các ứng dụng hiện đại (đặc biệt là kiến trúc Serverless) có thể dễ dàng làm cạn kiệt số lượng kết nối tối đa của một cơ sở dữ liệu quan hệ. **Amazon RDS Proxy** đứng giữa ứng dụng (ví dụ: EC2, Lambda) và RDS instance. Nó thiết lập và quản lý các connection pool cần thiết, cho phép các ứng dụng mở rộng quy mô một cách khó đoán mà không làm quá tải cơ sở dữ liệu PostgreSQL bên dưới.
 
-- **Hiếu** demo backend scaffold: cấu trúc repo, migration schema 7 bảng áp dụng trên Postgres local, và giới thiệu hướng dẫn triển khai (CI/CD hai repo, chiến lược hai tài khoản).
-- **Nguyên** đề xuất 6 endpoint bổ sung mở rộng thiết kế API thống nhất (tài liệu `ADJ_APIs.md`): **Admin Operations** (hàng chờ duyệt sân, approve/reject, quản lý vai trò người dùng), **Manager Analytics** (doanh thu), và **User Profile** (xem/cập nhật — hoãn lại do độ ưu tiên thấp).
 
-**Tóm tắt review các API bổ sung của Nguyên**
+**2. Cơ sở dữ liệu NoSQL: Amazon DynamoDB**
+*   **Khái niệm cốt lõi:** DynamoDB là một cơ sở dữ liệu NoSQL serverless, được quản lý hoàn toàn, thiết kế cho các ứng dụng yêu cầu độ trễ nhất quán ở mức một chữ số mili giây ở bất kỳ quy mô nào.
+*   **Thiết kế Single-Table (Bảng đơn):** Khác với các cơ sở dữ liệu quan hệ nơi dữ liệu được chuẩn hóa (normalized) qua nhiều bảng, DynamoDB phát huy sức mạnh thông qua **Single-Table Design**. Tất cả các thực thể có liên quan (ví dụ: Người dùng, Đơn hàng, Sản phẩm) đều được lưu trữ trong một bảng duy nhất.
+*   **Chiến lược triển khai:** Điều này đòi hỏi phải xác định trước toàn bộ các "mẫu truy cập" (access patterns) của ứng dụng. Các truy vấn phức tạp đạt được bằng cách thiết kế cẩn thận các Partition Keys (PK) và Sort Keys (SK), đồng thời sử dụng Global Secondary Indexes (GSIs) để lấy dữ liệu đã được join sẵn chỉ trong một truy vấn duy nhất.
 
-1. **Các endpoint duyệt sân của admin lấp một lỗ hổng thực sự**: §6.5 đưa ra vòng đời sân `PENDING` → `ACTIVE`/`REJECTED` nhưng chưa định nghĩa API admin nào để vận hành nó. `GET /admin/courts` (hàng chờ) + endpoint review hoàn thiện luồng này, kèm thông báo SNS đến court manager khi có quyết định.
-2. **Endpoint doanh thu phục vụ dashboard của manager** đã hứa ở §6.5. Định nghĩa thống nhất: tổng hợp từ **`payments` có `status = 'SUCCESS'`** (các khoản hoàn tiền tự động bị loại) join với các sân của người gọi — không dùng tổng tiền booking — và giới hạn theo `courts.owner_id` theo quy tắc chống IDOR, kèm tham số tùy chọn `group_by=day|court` cho biểu đồ.
-3. **Đổi vai trò phải đi qua Cognito trước**: `users.role` chỉ là cache — endpoint phải gọi Cognito `AdminAddUserToGroup`/`AdminRemoveUserFromGroup` rồi mới cập nhật bản ghi DB, nếu không claim trong JWT và DB sẽ lệch nhau.
-4. **Chuẩn hóa cách đặt tên**: `GET/PUT /users/me` (khớp mẫu `/bookings/me` hiện có) thay cho kiểu động từ `/users/update-profile`.
-5. **Cần bổ sung schema**: cột `courts.rejection_reason` (nullable) để lý do từ chối sân còn lưu lại sau khi thông báo đã gửi.
+**3. Bộ nhớ đệm (Caching): Amazon ElastiCache (Redis)**
+*   **Mục đích:** Cơ sở dữ liệu thường là nút thắt cổ chai trong các ứng dụng có lượng đọc dữ liệu lớn (read-heavy). **Amazon ElastiCache** cung cấp một môi trường Redis được quản lý hoàn toàn để đóng vai trò như một kho dữ liệu in-memory (trong bộ nhớ).
+*   **Giảm tải truy vấn (Query Offloading):** Các truy vấn PostgreSQL phức tạp, được yêu cầu thường xuyên (ví dụ: tạo bảng xếp hạng, danh mục sản phẩm) sẽ được lưu cache trong Redis. Backend trước tiên sẽ kiểm tra cache; nếu dữ liệu tồn tại (Cache Hit), nó sẽ được trả về ngay lập tức, bỏ qua hoàn toàn RDS instance và giảm tải đáng kể cho cơ sở dữ liệu.
 
-**Quyết định & phân công công việc**
-
-Cả 6 endpoint được chấp nhận với các điều chỉnh nêu trên (đã tích hợp vào Bản đề xuất thành [§6.6](/vi/2-proposal/2.1-architecture/)). Hiếu ưu tiên thiết lập CI/CD, nên phần triển khai tính năng được phân công theo mảng phụ trách:
-
-| # | Hành động | Phụ trách | Ghi chú |
-| - | --------- | --------- | ------- |
-| 1 | **Thiết lập CI/CD**: `ci.yml` ở cả hai repo → bảo vệ nhánh → environments; sau đó deploy walking-skeleton lên tài khoản dev (hướng dẫn Part 0–1) | Hiếu | Ưu tiên — mở khóa quality gate cho cả nhóm |
-| 2 | Model + migration `courts.rejection_reason` (việc đầu tiên — làm theo tài liệu Alembic), sau đó **router Admin Operations** (hàng chờ, review + SNS) và **endpoint đổi vai trò theo nguyên tắc Cognito trước** | Nguyên | Đề xuất §6.6 của bạn ấy; Cognito thuộc mảng auth bạn ấy phụ trách. `ADJ_APIs.md` được thay thế bởi §6.6 |
-| 3 | **Router đặt sân** trên schema đã scaffold; sau đó **endpoint doanh thu** (`SUM` trên payments theo định nghĩa §6.6) | Thành | Doanh thu là truy vấn tổng hợp chỉ-đọc — bước tiếp nối tự nhiên sau khi quen truy vấn booking |
-| 4 | **Kiểm chứng kết nối FE–BE** (health check qua CORS); dựng **màn hình review cho admin** và **biểu đồ doanh thu** trên mock; sinh lại kiểu dữ liệu khi contract cập nhật (luồng §4.3) | Danh & Hùng | Làm trên mock trước nên không phải chờ endpoint backend |
-| 5 | Hoãn các endpoint hồ sơ người dùng (ưu tiên thấp, quay lại sau các tính năng cốt lõi) | — | |
-| 6 | Ghi nhận quyền Cognito admin (`AdminAddUserToGroup`, v.v.) cho EC2 instance role ở giai đoạn deploy | Hiếu | Bề mặt IAM mới — theo dõi trong checklist bàn giao của hướng dẫn CI/CD |
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/1.png)
 
 ---
 
-### Bảng thuật ngữ viết tắt
+### Amazon Cognito: Quản lý Danh tính và Quyền truy cập cho Ứng dụng
 
-| Viết tắt | Ý nghĩa |
+Amazon Cognito cung cấp khả năng quản lý danh tính và quyền truy cập khách hàng (CIAM) cực kỳ an toàn và không rào cản cho các ứng dụng web và di động.
+
+**1. Các Thành phần cốt lõi và Mục đích**
+*   **User Pools:** Đóng vai trò như các thư mục người dùng. Chúng xử lý việc xác thực (xác minh *ai* là người dùng) và cung cấp các chức năng như đăng ký, đăng nhập, MFA (Xác thực đa yếu tố) và khôi phục tài khoản.
+*   **Identity Pools:** Xử lý việc phân quyền (xác định người dùng có thể truy cập *những gì*). Chúng trao đổi các token của User Pool (hoặc token bên ngoài) để lấy các thông tin xác thực AWS tạm thời, cho phép người dùng truy cập trực tiếp vào các tài nguyên AWS (như S3 hoặc DynamoDB).
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/2.png)
+
+Mình đã khởi tạo một Cognito identity pool, cho phép xác thực (AUTH) bằng username và mật khẩu. Ngoài ra, email và số điện thoại cũng được định cấu hình làm alias (bí danh) bởi Cognito, cho phép người dùng sử dụng một trong hai để đăng nhập.
+
+Việc xác nhận (Confirmation) là bắt buộc theo tiêu chuẩn của Cognito, nó có thể được thực hiện qua email hoặc SMS điện thoại, tùy thuộc vào phương thức nào khả dụng (Mặc dù dịch vụ SMS cần được thiết lập và có thể tốn phí).
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/3.png)
+
+Đây là trang mặc định Hosted UI của Cognito, chúng ta có thể cập nhật trang này bằng template CSS tùy chỉnh của mình. Tại đây cũng đã có sẵn các dịch vụ đăng ký và lấy lại mật khẩu được tích hợp.
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/4.png)
+
+**2. Mở rộng với các Nhà cung cấp Danh tính Bên ngoài (IdP)**
+*   Cognito hỗ trợ liên kết danh tính (identity federation). Người dùng có thể đăng nhập thông qua các nhà cung cấp danh tính mạng xã hội (Google, Facebook, Apple) hoặc các nhà cung cấp doanh nghiệp thông qua SAML 2.0 và OpenID Connect (OIDC).
+*   Cognito hoạt động như một nhà môi giới trung tâm (central broker), thống nhất các nhà cung cấp khác nhau này và trả về một bộ JSON Web Tokens (JWT) tiêu chuẩn cho ứng dụng, bất kể phương thức đăng nhập ban đầu là gì.
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/5.png)
+
+Đây là trang Google Auth Platform, bắt buộc phải có các origins và redirect URIs để Google biết rằng trang web này được phép sử dụng Google Oauth2 như một nhà cung cấp bên ngoài.
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/6.png)
+
+![So sánh các loại EC2 Instance](/images/1-Worklog/1.5-Week5/7.png)
+
+Cognito cung cấp sẵn cho lập trình viên các tin nhắn xác minh (verification message) ngay lập tức, đồng thời cũng cho phép chỉnh sửa lại tin nhắn cho phù hợp. Tại đây, mình đã thử chỉnh sửa tin nhắn mặc định thành một nội dung trang trọng và chuyên nghiệp hơn.
+
+
+**3. Hosted UI vs. Custom UI (Mặc định)**
+*   **Hosted UI:** Một giao diện web có sẵn, có thể tùy chỉnh do AWS cung cấp cho việc đăng ký và đăng nhập của người dùng. Nó tự động xử lý toàn bộ luồng OAuth 2.0, khiến đây trở thành cách nhanh nhất để triển khai xác thực mà không cần viết logic frontend.
+*   **Custom UI:** Tự xây dựng các màn hình đăng nhập từ đầu bằng cách sử dụng AWS SDKs hoặc Amplify. Cách này cung cấp sự linh hoạt hoàn toàn về mặt thiết kế nhưng đòi hỏi phải tự xử lý quản lý state, đặt lại mật khẩu và luồng MFA thủ công bên trong code frontend.
+
+**4. Chiến lược Tích hợp: Amplify vs. EC2**
+*   **Với AWS Amplify:** Amplify trừu tượng hóa sự phức tạp đi. Bằng cách sử dụng component `Authenticator` trong React, việc tích hợp frontend đạt được chỉ trong vài phút. Amplify tự động quản lý việc lưu trữ token, tự động refresh, và gắn header Authorization vào các request API gửi đi.
+*   **Với EC2 (Xác minh Backend):** Khi frontend gửi một request đến một backend được host trên EC2 (ví dụ: một Spring Boot hoặc Python API), backend phải xác minh người dùng. 
+    *   Frontend truyền Cognito JWT (Access hoặc ID token) trong header `Authorization`.
+    *   Backend EC2 sử dụng các thư viện (như `aws-jwt-verify`) để xác thực chữ ký của token so với các khóa công khai của Cognito (JWKS), xác minh thời gian hết hạn và trích xuất các thông tin (claims) của người dùng trước khi xử lý logic nghiệp vụ.
+
+> *[GHI CHÚ CHÈN ẢNH: Chèn một sơ đồ luồng xác thực: Người dùng đăng nhập qua Cognito Hosted UI -> Nhận JWT -> Gửi JWT đến API Gateway/EC2 -> EC2 xác thực JWT và trả về dữ liệu được bảo vệ.]*
+
+---
+
+### Các công việc hoàn thành trong tuần:
+
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | ---- | ---------- | --------------- | ------------------ |
+| 1 | Cấu hình Multi-AZ RDS & Proxy | 2026-07-06 | 2026-07-06 | AWS RDS Best Practices |
+| 2 | Mô hình hóa Thiết kế DynamoDB Single-Table | 2026-07-07 | 2026-07-07 | NoSQL Design Patterns |
+| 3 | Tích hợp ElastiCache (Redis) | 2026-07-08 | 2026-07-08 | Caching Strategies |
+| 4 | Cài đặt Cognito User & Identity Pools | 2026-07-09 | 2026-07-09 | Cognito Auth Flows |
+| 5 | Xác minh JWT Tokens trên Backend (EC2) | 2026-07-10 | 2026-07-10 | JWT Validation Docs |
+
+### Thành quả Tuần 5:
+
+*   Thiết kế kiến trúc cho cơ sở dữ liệu PostgreSQL có khả năng phục hồi cao sử dụng Multi-AZ cho việc chuyển đổi dự phòng và RDS Proxy để tạo connection pooling hiệu quả.
+*   Chuyển đổi từ chuẩn hóa quan hệ (relational normalization) sang các phương pháp thiết kế single-table của NoSQL để truy xuất dữ liệu hiệu suất cao.
+*   Triển khai thành công mẫu Cache-Aside bằng Redis để giảm tải mạnh mẽ cho cơ sở dữ liệu chính.
+*   Cấu hình Amazon Cognito với liên kết Google/Facebook sử dụng Hosted UI.
+*   Thiết lập một luồng làm việc an toàn trên backend EC2 để đánh chặn, xác thực và xử lý các JSON Web Tokens (JWT) của Cognito gửi tới.
+
+
+---
+
+### Glossary
+
+| Abbreviation | Meaning |
 | --- | --- |
-| API | Giao diện lập trình ứng dụng — quy ước để các thành phần phần mềm giao tiếp với nhau |
-| AWS | Nền tảng điện toán đám mây của Amazon |
-| BE | Backend — phần phía máy chủ của ứng dụng |
-| CI/CD | Tích hợp liên tục / Chuyển giao liên tục — tự động build, test và triển khai |
-| CORS | Cross-Origin Resource Sharing — cơ chế trình duyệt cho phép trang web gọi API ở origin khác |
-| DB | Cơ sở dữ liệu |
-| ERD | Sơ đồ thực thể – quan hệ, mô hình hóa các bảng và quan hệ trong CSDL |
-| FE | Frontend — phần giao diện phía người dùng của ứng dụng |
-| FK | Khóa ngoại — cột tham chiếu khóa chính của bảng khác |
-| IaC | Hạ tầng dưới dạng mã — khai báo hạ tầng trong tệp có quản lý phiên bản |
-| IDOR | Insecure Direct Object Reference — lỗ hổng truy cập tài nguyên của người dùng khác bằng cách thao túng ID đối tượng |
-| JWT | Token ký số mang thông tin danh tính (claims) |
-| SNS | Dịch vụ thông báo pub/sub của AWS |
+| API | Application Programming Interface — the contract through which software components communicate |
+| AWS | Amazon Web Services — Amazon's cloud computing platform |
+| BE | Backend — the server-side part of the application |
+| CI/CD | Continuous Integration / Continuous Delivery — automated building, testing, and deployment |
+| CORS | Cross-Origin Resource Sharing — browser mechanism allowing a page to call APIs on another origin |
+| DB | Database |
+| ERD | Entity-Relationship Diagram — visual model of database tables and their relationships |
+| FE | Frontend — the client-side part of the application |
+| FK | Foreign Key — a column referencing another table's primary key |
+| IaC | Infrastructure as Code — declaring infrastructure in versioned files |
+| IDOR | Insecure Direct Object Reference — accessing another user's resources by manipulating object IDs |
+| JWT | JSON Web Token — signed token carrying identity claims |
+| SNS | Amazon Simple Notification Service — pub/sub messaging and notifications |
